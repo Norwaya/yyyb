@@ -1,0 +1,45 @@
+PODS:
+  - Alamofire (4.2.0)
+  - DGElasticPullToRefresh (1.1)
+  - Hue (2.0.1)
+  - ImagePicker (2.0.0)
+  - IQKeyboardManagerSwift (4.0.7)
+  - Lightbox (1.0.0):
+    - Hue
+    - Sugar
+  - MMNumberKeyboard (0.1.5)
+  - Sugar (3.0.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - DGElasticPullToRefresh
+  - Hue
+  - ImagePicker
+  - IQKeyboardManagerSwift
+  - Lightbox (from `https://github.com/hyperoslo/Lightbox.git`, branch `swift-3`)
+  - MMNumberKeyboard
+  - Sugar
+
+EXTERNAL SOURCES:
+  Lightbox:
+    :branch: swift-3
+    :git: https://github.com/hyperoslo/Lightbox.git
+
+CHECKOUT OPTIONS:
+  Lightbox:
+    :commit: e4650672176adb73d0d6389a70654648f22c8f4b
+    :git: https://github.com/hyperoslo/Lightbox.git
+
+SPEC CHECKSUMS:
+  Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
+  DGElasticPullToRefresh: 28f11a6026302a90f8ffebbc6e24748e584dddd3
+  Hue: 354caec055fdc9d38b5ef33ca2e7224721843baf
+  ImagePicker: 81175d36c2852cb543cb4f5d6c19e28f3e8d90eb
+  IQKeyboardManagerSwift: 58bbcf46b5cf9fd4ed625d28a60cb2fbae4ab0f4
+  Lightbox: e4523e8cf3261cbc833d0e76ae4dae774731d115
+  MMNumberKeyboard: 12da79571d08aca21566534a74726c5469aed29a
+  Sugar: 079e1375b76c8f0693474417836ef098f507ac50
+
+PODFILE CHECKSUM: 5c30f2136662d4fb57d17899e614bd9fb13e5f90
+
+COCOAPODS: 1.1.1

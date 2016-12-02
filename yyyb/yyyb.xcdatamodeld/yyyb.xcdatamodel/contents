@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11542" systemVersion="16B2555" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Aclass" representedClassName="Aclass" syncable="YES" codeGenerationType="class">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="aorder" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Aorder" inverseName="inclass" inverseEntity="Aorder" syncable="YES"/>
+    </entity>
+    <entity name="Afamily" representedClassName="Afamily" syncable="YES" codeGenerationType="class">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="agenus" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Agenus" inverseName="infamily" inverseEntity="Agenus" syncable="YES"/>
+        <relationship name="inorder" maxCount="1" deletionRule="Nullify" destinationEntity="Aorder" inverseName="afamily" inverseEntity="Aorder" syncable="YES"/>
+    </entity>
+    <entity name="Agenus" representedClassName="Agenus" syncable="YES" codeGenerationType="class">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="aspecies" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Aspecies" inverseName="ingenus" inverseEntity="Aspecies" syncable="YES"/>
+        <relationship name="infamily" maxCount="1" deletionRule="Nullify" destinationEntity="Afamily" inverseName="agenus" inverseEntity="Afamily" syncable="YES"/>
+    </entity>
+    <entity name="Aorder" representedClassName="Aorder" syncable="YES" codeGenerationType="class">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="afamily" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Afamily" inverseName="inorder" inverseEntity="Afamily" syncable="YES"/>
+        <relationship name="inclass" maxCount="1" deletionRule="Nullify" destinationEntity="Aclass" inverseName="aorder" inverseEntity="Aclass" syncable="YES"/>
+    </entity>
+    <entity name="Aspecies" representedClassName="Aspecies" syncable="YES" codeGenerationType="class">
+        <attribute name="characteristic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="distribution" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="habit" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latinName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ingenus" maxCount="1" deletionRule="Nullify" destinationEntity="Agenus" inverseName="aspecies" inverseEntity="Agenus" syncable="YES"/>
+    </entity>
+    <entity name="Disease" representedClassName="Disease" syncable="YES" codeGenerationType="class">
+        <attribute name="ccode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dcode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latinName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Expert" representedClassName="Expert" syncable="YES" codeGenerationType="class">
+        <attribute name="birthday" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="cName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="degree" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="developField" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="job" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latinName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="personalProfile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="researchRusult" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sex" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="unit" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Linkman" representedClassName="Linkman" syncable="YES" codeGenerationType="class">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="job" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unit" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="User" positionX="-270" positionY="-207" width="128" height="75"/>
+        <element name="Aclass" positionX="-207" positionY="-120" width="128" height="73"/>
+        <element name="Afamily" positionX="-333" positionY="117" width="128" height="88"/>
+        <element name="Agenus" positionX="-45" positionY="209" width="128" height="88"/>
+        <element name="Aorder" positionX="27" positionY="9" width="128" height="88"/>
+        <element name="Aspecies" positionX="-281" positionY="254" width="128" height="133"/>
+        <element name="Disease" positionX="-306" positionY="-18" width="128" height="118"/>
+        <element name="Linkman" positionX="-153" positionY="126" width="128" height="105"/>
+        <element name="Expert" positionX="-144" positionY="135" width="128" height="210"/>
+    </elements>
+</model>
