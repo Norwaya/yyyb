@@ -176,7 +176,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xsy-df-MLj">
+                                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xsy-df-MLj" customClass="CustomButton" customModule="yyyb" customModuleProvider="target">
                                                     <rect key="frame" x="213" y="13" width="99" height="30"/>
                                                     <state key="normal" title="巡查轨迹"/>
                                                 </button>
@@ -242,6 +242,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GnC-2R-4ki" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1290" y="65"/>
+        </scene>
+        <!--Trace View Controller-->
+        <scene sceneID="eXQ-Nr-i03">
+            <objects>
+                <viewController storyboardIdentifier="trace" useStoryboardIdentifierAsRestorationIdentifier="YES" id="J0e-Jk-3tg" customClass="TraceViewController" customModule="yyyb" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Hrx-pI-2r5"/>
+                        <viewControllerLayoutGuide type="bottom" id="Coa-h2-o1c"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="O76-VJ-sFd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qub-hX-WYh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1755" y="65"/>
         </scene>
         <!--Yy View Controller-->
         <scene sceneID="D8C-v3-EUm">

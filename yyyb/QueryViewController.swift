@@ -167,11 +167,21 @@ extension QueryViewController: UITableViewDataSource{
         if let c = cell{
             let date = c.viewWithTag(1) as! UILabel
             let recordNum = c.viewWithTag(2) as! UILabel
+            let btn = c.viewWithTag(3) as! CustomButton
+            btn.id = indexPath.row
+            btn.addTarget(self, action: #selector(btnTarget(sender:)), for: UIControlEvents.touchUpInside)
+            
             date.text = "2016/01/01"
             recordNum.text = "\(indexPath.row)"
         }
         
         return cell!
+    }
+    func btnTarget(sender: CustomButton){
+        let id = sender.id
+        // send the id to traceViewController and load 
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "trace")
+        self.navigationController?.pushViewController(vc!, animated: true)
     }
 }
 

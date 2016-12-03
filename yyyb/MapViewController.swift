@@ -12,13 +12,14 @@ class MapViewController: UIViewController,MAMapViewDelegate, AMapLocationManager
 
     //MARK: - Properties
     
-//    let showSegment = UISegmentedControl(items: ["Start", "Stop"])
-   
+    let defaultLocationTimeout = 6
+    let defaultReGeocodeTimeout = 3
     
     
 //    let pointAnnotation = MAPointAnnotation()
     
     var mapView: MAMapView!
+    var completionBlock: AMapLocatingCompletionBlock!
     lazy var locationManager = AMapLocationManager()
     
     //MARK: - Action Handle
@@ -26,9 +27,19 @@ class MapViewController: UIViewController,MAMapViewDelegate, AMapLocationManager
     func configLocationManager() {
         locationManager.delegate = self
         
-        locationManager.pausesLocationUpdatesAutomatically = false
+        locationManager.requestLocation(withReGeocode: true, completionBlock: self.completionBlock)
         
-        locationManager.allowsBackgroundLocationUpdates = true
+        
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+
+        locationManager.pausesLocationUpdatesAutomatically = false //设置不允许系统暂停定位
+        
+        locationManager.allowsBackgroundLocationUpdates = true //允许后台定位
+        
+        locationManager.locationTimeout = defaultLocationTimeout
+        
+        locationManager.reGeocodeTimeout = defaultReGeocodeTimeout
+
     }
     
 //    func showSegmentAction(sender: UISegmentedControl) {
@@ -53,23 +64,26 @@ class MapViewController: UIViewController,MAMapViewDelegate, AMapLocationManager
     
     }
     //MARK: - AMapLocationManagerDelegate
-    
+    //定位失败 时调用
     func amapLocationManager(_ manager: AMapLocationManager!, didFailWithError error: Error!) {
         let error = error as NSError
         NSLog("didFailWithError:{\(error.code) - \(error.localizedDescription)};")
     }
     
-    var lockCenter = true
+    
     func mapView(_ mapView: MAMapView!, mapDidMoveByUser wasUserAction: Bool) {
-        lockCenter = false
-//        self.gpsButton.isSelected = false
+//        NSLog("moved by user")
     }
+    func mapView(_ mapView: MAMapView!, didUpdate userLocation: MAUserLocation!, updatingLocation: Bool) {
+//        NSLog("\nuser info-----\nspeed: %f \n ", userLocation.location.speed,userLocation.location)
+    }
+    //
     func amapLocationManager(_ manager: AMapLocationManager!, didUpdate location: CLLocation!, reGeocode: AMapLocationReGeocode?) {
         point.latitude = location.coordinate.latitude
         point.longitude = location.coordinate.longitude
-        let address = reGeocode?.formattedAddress
-        point.detailAddress = (address == nil ? "":address!)
-//        NSLog("location:{lat:\(location.coordinate.latitude); lon:\(location.coordinate.longitude); accuracy:\(location.horizontalAccuracy); reGeocode:\(reGeocode?.formattedAddress)};");
+        point.detailAddress = reGeocode?.formattedAddress ?? ""
+        NSLog("\nlat: %f \nlon: %f \ndetail: %@ ", point.latitude,point.longitude,point.detailAddress)
+        //        NSLog("location:{lat:\(location.coordinate.latitude); lon:\(location.coordinate.longitude); accuracy:\(location.horizontalAccuracy); reGeocode:\(reGeocode?.formattedAddress)};");
         
 //        pointAnnotation.coordinate = location.coordinate
 //        mapView.centerCoordinate = location.coordinate
@@ -77,17 +91,44 @@ class MapViewController: UIViewController,MAMapViewDelegate, AMapLocationManager
         
     }
     
+    func initCompleteBlock() {
+        
+        self.completionBlock = { [weak self] (location: CLLocation?, regeocode: AMapLocationReGeocode?, error: Error?) in
+            
+            NSLog("start regeocode ---\(location)")
+            if let error = error {
+                let error = error as NSError
+                NSLog("locError:{\(error.code) - \(error.localizedDescription)};")
+                
+                if error.code == AMapLocationErrorCode.locateFailed.rawValue {
+                    return;
+                }
+            }
+            
+            if let location = location {
+                
+                if let regeocode = regeocode {
+                    NSLog("\(regeocode.formattedAddress) \n \(regeocode.citycode!)-\(regeocode.adcode!)-\(location.horizontalAccuracy)m")
+                }
+                else {
+                    NSLog("lat:\(location.coordinate.latitude); lon:\(location.coordinate.longitude); accuracy:\(location.horizontalAccuracy)m")
+                }
+            }
+            
+        }
+    }
     //MARK: - Life Cycle
 
     override func viewDidLoad() {
-        print("view did load ")
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         self.title = "巡查定位"
         initToolBar()
-        
         initMapView()
         initOtherView()
+        
+        initCompleteBlock()
+        
         configLocationManager()
         backAction()
 //        mapView.addAnnotation(pointAnnotation)
@@ -98,20 +139,20 @@ class MapViewController: UIViewController,MAMapViewDelegate, AMapLocationManager
     }
     func test(sender: UIBarButtonItem){
         //处理 未上传的 报告
-        print("deal daily and express")
+        NSLog("deal daily and express")
         self.navigationController?.popToRootViewController(animated: true)
 
     }
     var toolbar: UIToolbar!
     override func viewWillAppear(_ animated: Bool) {
-        print("view will appear")
+        NSLog("view will appear")
         super.viewWillAppear(animated)
         navigationController?.setToolbarHidden(false, animated: false)
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("view did appear")
+        NSLog("view did appear")
         super.viewDidAppear(animated)
         
         
@@ -202,7 +243,7 @@ class MapViewController: UIViewController,MAMapViewDelegate, AMapLocationManager
         
 
     }
-    //MARK: - MAMapVie Delegate
+    //MARK: - MAMapView Delegate
     
     func mapView(_ mapView: MAMapView!, viewFor annotation: MAAnnotation!) -> MAAnnotationView! {
         if annotation is MAPointAnnotation {
@@ -269,8 +310,6 @@ extension MapViewController: UIImagePickerControllerDelegate, UINavigationContro
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         print("photo finished")
         UIImageWriteToSavedPhotosAlbum(info[UIImagePickerControllerOriginalImage] as! UIImage, nil, nil, nil)
-        UIImageWriteToSavedPhotosAlbum(<#T##image: UIImage##UIImage#>, <#T##completionTarget: Any?##Any?#>, <#T##completionSelector: Selector?##Selector?#>, <#T##contextInfo: UnsafeMutableRawPointer?##UnsafeMutableRawPointer?#>)
-
         UIView.animate(withDuration: 0.001, animations: {
             picker.dismiss(animated: false, completion: {
                 self.present(picker, animated: true, completion: nil)

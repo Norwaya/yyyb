@@ -10,8 +10,10 @@
 #define Swift_Bridging_Header_h
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <MAMapKit/MAMapKit.h>
-#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <MAMapKit/MATraceLocation.h>
+#import <MAMapKit/MATraceManager.h>
 
+#import <AMapFoundationKit/AMapFoundationKit.h>
 #import "APIKey.h"
 #import "OfflineDetailViewController.h"
 #import "OfflineViewController.h"
