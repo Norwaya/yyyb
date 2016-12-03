@@ -178,8 +178,9 @@ extension QueryViewController: UITableViewDataSource{
         return cell!
     }
     func btnTarget(sender: CustomButton){
-        let id = sender.id
-        // send the id to traceViewController and load 
+//        let id = sender.id
+        //根据ID 获取 array 中的轨迹堆栈信息
+        // send the id to traceViewController and load
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "trace")
         self.navigationController?.pushViewController(vc!, animated: true)
     }

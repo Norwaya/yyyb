@@ -49,9 +49,9 @@ class AnimalSpeciesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var dic = ["item":array[indexPath.row]]
+        let dic = ["item":array[indexPath.row]]
         delegate?.passDictionary(dic: dic)
-        navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     /*
     // Override to support conditional editing of the table view.
