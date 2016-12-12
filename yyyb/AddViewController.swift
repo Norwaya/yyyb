@@ -7,12 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 class AddViewController: UIViewController, UISearchBarDelegate{
 
     var firstLoad = true
     @IBOutlet weak var collectionView: UICollectionView!
-    
     @IBOutlet weak var searchBar: UISearchBar!
     
     
@@ -23,6 +23,9 @@ class AddViewController: UIViewController, UISearchBarDelegate{
     
     @IBOutlet weak var btn_Daily: UIButton!
     @IBOutlet weak var btn_Express: UIButton!
+    
+    var context: NSManagedObjectContext!
+    var yydmDescription: NSEntityDescription!
     
     
     @IBAction func singleBtnAction(_ sender: UIButton) {
@@ -40,16 +43,16 @@ class AddViewController: UIViewController, UISearchBarDelegate{
             original = ["常用1","常用2","常用3","常用4","常用5"]
             updateView()
         case 102:
-            original = ["鸟1","鸟2","鸟3","鸟4","鸟5","鸟6","鸟7"]
+            original = queryById(id: "AV")
             updateView()
         case 103:
-            original = ["哺乳1","哺乳2","哺乳3","哺乳4","哺乳5",]
+            original = queryById(id: "MA")
             updateView()
         case 104:
-            original = ["","","","","","",""]
+            original = queryById(id: "AV")
             updateView()
         case 105:
-            original = ["","","","","","",""]
+            original = queryById(id: "AV")
             updateView()
         default:
             print("")
@@ -89,8 +92,9 @@ class AddViewController: UIViewController, UISearchBarDelegate{
         updateView()
     }
     override func viewDidAppear(_ animated: Bool) {
-//        print("view did appear")
-        
+        let app = UIApplication.shared.delegate as! AppDelegate
+        context = app.persistentContainer.viewContext
+        yydmDescription = NSEntityDescription.entity(forEntityName: "Yydm", in: context)
     }
     
     var resultDic: NSDictionary?
@@ -222,12 +226,36 @@ class AddViewController: UIViewController, UISearchBarDelegate{
         collectionView.reloadData()
         dic.removeAll()
     }
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-//    {
-//        searchBar.resignFirstResponder()
-//        print("did select row at\(indexPath.row)")
+    func queryById(id: String) -> Array<String>{
+        var array: Array<String> = Array()
+        do {
+            let request = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Yydm")
+            request.predicate = NSPredicate.init(format: "id CONTAINS %@ ", id)
+            
+            let result = try! context.fetch(request) as! [Yydm] as Array
+            NSLog("result couunt is %d", result.count)
+            for yydm in result{
+                array.append(yydm.yymc!)
+            }
+            return array
+        } catch {
+            print("query error")
+        }
+       return array
+        
+    }
+    
+//    func queryCommon() -> Array<Yydm>{
+//        do {
+//            let request = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Yydm")
+//            
+//            return try! context.fetch(request) as! [Yydm] as Array
+//        } catch {
+//            print("query error")
+//        }
+//        return Array()
+//        
 //    }
-     
     
   }
 

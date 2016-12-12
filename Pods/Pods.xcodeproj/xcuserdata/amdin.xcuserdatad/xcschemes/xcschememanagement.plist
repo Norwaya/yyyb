@@ -44,12 +44,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Masonry.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-yyyb.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Sugar.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -68,6 +78,11 @@
 			<true/>
 		</dict>
 		<key>3BFF9F651824EF6D7159B996DAA71D25</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3EC673075F7CE8E7AD7EEEC807ACE9B4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,12 +112,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CD59E03E9160E37D9E98E6364A2AE834</key>
+		<key>C1190E9BFA9ADD8984A42A954DD827B7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>CE6F1DE9612B5EF3B111F39E609A50CF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D52144DE9D7255DE912490FF5A806573</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -47,25 +47,90 @@
         <attribute name="sex" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="unit" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Kbxx" representedClassName="Kbxx" syncable="YES" codeGenerationType="class">
+        <attribute name="bgbh" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cbjl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cbjlqt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fjsc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fxdd" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fxsj" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="jd" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lrsj" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ssbm" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="swsl" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="wd" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wzid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="xccl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ycdwcl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ycsl" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="zqsl" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="zqtz" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zzms" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Linkman" representedClassName="Linkman" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="job" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="photo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unit" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Pic" representedClassName="Pic" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="Transformable" syncable="YES"/>
+    </entity>
+    <entity name="Rbxx" representedClassName="Rbxx" syncable="YES" codeGenerationType="class">
+        <attribute name="bgbh" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fjsc" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="jclx" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="jd" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="lrry" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lrsj" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ssbm" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="swsl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wd" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="wzdm" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zqsl" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="csny" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="czzt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="leastlogintime" attributeType="String" syncable="YES"/>
+        <attribute name="llry" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="llsj" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mm" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="others" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sj" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ssbm" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="xb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="xl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="xm" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="yhm" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zfzb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zjz" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Yydm" representedClassName="Yydm" syncable="YES" codeGenerationType="class">
+        <attribute name="fb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ldmc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sj" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tmtz" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="xx" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="yymc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zp" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="User" positionX="-270" positionY="-207" width="128" height="75"/>
         <element name="Aclass" positionX="-207" positionY="-120" width="128" height="73"/>
         <element name="Afamily" positionX="-333" positionY="117" width="128" height="88"/>
         <element name="Agenus" positionX="-45" positionY="209" width="128" height="88"/>
         <element name="Aorder" positionX="27" positionY="9" width="128" height="88"/>
         <element name="Aspecies" positionX="-281" positionY="254" width="128" height="133"/>
         <element name="Disease" positionX="-306" positionY="-18" width="128" height="118"/>
+        <element name="Expert" positionX="-144" positionY="135" width="128" height="208"/>
+        <element name="Kbxx" positionX="-144" positionY="-99" width="128" height="315"/>
         <element name="Linkman" positionX="-153" positionY="126" width="128" height="105"/>
-        <element name="Expert" positionX="-144" positionY="135" width="128" height="210"/>
+        <element name="Pic" positionX="-126" positionY="-81" width="128" height="58"/>
+        <element name="Rbxx" positionX="-153" positionY="-108" width="128" height="210"/>
+        <element name="User" positionX="-333" positionY="-261" width="128" height="298"/>
+        <element name="Yydm" positionX="-135" positionY="-90" width="128" height="165"/>
     </elements>
 </model>

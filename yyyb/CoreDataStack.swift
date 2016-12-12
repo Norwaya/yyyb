@@ -48,7 +48,11 @@ class CoreDataStack {
     
     func saveContext() {
         do{
-            try? context.save()
+            if #available(iOS 10.0, *) {
+                let app = UIApplication.shared.delegate as! AppDelegate
+                context = app.persistentContainer.viewContext
+            }
+            try context.save()
         }catch{
             
         }

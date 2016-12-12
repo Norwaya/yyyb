@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import  Alamofire
+import SwiftyJSON
 class TableViewController: UITableViewController {
 
    
@@ -15,68 +17,136 @@ class TableViewController: UITableViewController {
     var titles: Array<Array<String>>!
     var images: Array<Array<String>>!
     var classNames: Array<Array<UIViewController.Type>>!
+    
+    //检查登录状态
+    
+    func checkLoginState() -> Bool{
+        let app = UIApplication.shared.delegate as! AppDelegate
+        let managerObjectContext = app.persistentContainer.viewContext
+        let ud = UserDefaults.standard
+        let currentUserId = ud.string(forKey: "currentUserId")
+        if (currentUserId == nil) {
+            NSLog("user id is nil")
+            return false
+        }
+        NSLog("get current user id -> %@",currentUserId!)
+        let request = NSFetchRequest<NSFetchRequestResult>.init(entityName: "User")
+        print("\(currentUserId!)")
+        request.predicate = NSPredicate.init(format: " yhm CONTAINS %@ ", currentUserId!)
+        do {
+            var result = try? managerObjectContext.fetch(request) as! [User] as Array
+            print("result len :\(result?.count)")
+            if((result?.count)! > 0){
+                let date = result?[0].leastlogintime
+                if compDate(nsdate: date!){
+                    return true
+                }
+                //            NSLog("\(date?.compare(currentDate).rawValue)")
+            }
+            
+        } catch let err as NSError {
+            NSLog("query sql error: %@", err.description)
+        }
+        
+        return false
+    }
+    func compDate(nsdate: String) -> Bool{
+       
+        
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd HH-mm-ss"
+        let loginDate = format.date(from: nsdate)
+        let compDate = Date.init(timeInterval: 60*60*24*30, since: loginDate!)
+        print("comdate: \(compDate)")
+        
+//        let timeZone = NSTimeZone.system
+//        let interval = timeZone.secondsFromGMT()
+//        let currentDate = Date().addingTimeInterval(TimeInterval(interval))
+//        NSTimeZone *timeZone = [[NSTimeZone alloc] init];
+//        timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
+//        NSTimeInterval interval = [timeZone secondsFromGMT];
+//        NSDate *GMTDate = [date dateByAddingTimeInterval:-interval];
+//        print(currentDate)
+        let r = compDate.compare(Date())
+        print(r)
+        switch r{
+        
+        case .orderedDescending:
+            return true
+        
+        default:
+            return false
+        }
+        return false
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isToolbarHidden = true
         initResource()
     }
+    //检查登录状态
+    override func viewDidAppear(_ animated: Bool) {
+        if !checkLoginState(){
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "login")
+            self.navigationController?.pushViewController(vc!, animated: true)
+        }
+
+    }
     
-    
-    var isFirst = true
     func initResource(){
-        if !isFirst{
+        let ud = UserDefaults.standard
+        let flag = ud.bool(forKey: "hasInitData")
+        if flag {
             return
         }
-        isFirst = false
-        
+        print("flag is \(flag)")
         let app = UIApplication.shared.delegate as! AppDelegate
 //        app.domain
         
-        var managerObjectContext:NSManagedObjectContext
-        if #available(iOS 10.0, *) {
-            managerObjectContext = app.persistentContainer.viewContext
-        } else {
-            managerObjectContext =  app.coreData.context
+        let managerObjectContext = app.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "Yydm", in: managerObjectContext)
+        //Get the ManagedObject
+        let filePath = Bundle.main.path(forResource: "yydm", ofType: "json")
+        
+        do {
+            let content = try? String.init(contentsOfFile: filePath!, encoding: String.Encoding.utf8)
+//            print(content)
+            var json :JSON = JSON.null
+            if let dataFromString = content?.data(using: .utf8, allowLossyConversion: false) {
+                json = JSON(data: dataFromString)
+            }
+            print(json.array?.count)
+            let array = json.array
+            for index in 0 ..< 3577{
+//                DispatchQueue.global().async {
+                    print("index -> \(index)")
+                    let yydm = NSManagedObject(entity: entity!, insertInto: managerObjectContext) as! Yydm
+                    yydm.id = array?[index]["id"].description
+                    yydm.yymc = array?[index]["yymc"].description
+                    yydm.ldmc = array?[index]["ldmc"].description
+                    yydm.fb = array?[index]["fb"].description
+                    yydm.tmtz = array?[index]["tmtz"].description
+                    yydm.zp = array?[index]["zp"].description
+                    yydm.xx = array?[index]["xx"].description
+                    yydm.sj = array?[index]["sj"].description
+                    try? managerObjectContext.save()
+//                }
+                
+            }
+            var result = try? managerObjectContext.fetch(NSFetchRequest<NSFetchRequestResult>.init(entityName: "Yydm")) as! [Yydm] as Array
+            print("yydm count is \(result?.count)")
+//            for a in result!{
+//                    managerObjectContext.delete(a)
+//            }
+//            try? managerObjectContext.save()
+            ud.set(true, forKey: "hasInitData")
+            ud.synchronize()
+        } catch  let err as NSError{
+                print("error when save data \(err.description)")
         }
         
-        let array =  ["Aclass","Aorder","Afamily","Agenus","Aspecies"]
-        let names = ["鸟纲","雀形目","燕科","燕属","金腰燕"]
-
         
-        
-        let entity1 = NSEntityDescription.entity(forEntityName: array[0], in: managerObjectContext)
-        //Get the ManagedObject
-        
-        var clazz1 = NSManagedObject(entity: entity1!, insertInto: managerObjectContext) as! Aclass
-        clazz1.name = names[0]
-       
-        var entity2 = NSEntityDescription.entity(forEntityName: array[1], in: managerObjectContext)
-        //Get the ManagedObject
-        
-        var clazz2 = NSManagedObject(entity: entity2!, insertInto: managerObjectContext) as! Aorder
-        clazz2.name = names[1]
-        
-        var entity3 = NSEntityDescription.entity(forEntityName: array[2], in: managerObjectContext)
-        //Get the ManagedObject
-        
-        var clazz3 = NSManagedObject(entity: entity3!, insertInto: managerObjectContext) as! Afamily
-        clazz3.name = names[2]
-        var entity4 = NSEntityDescription.entity(forEntityName: array[3], in: managerObjectContext)
-        //Get the ManagedObject
-        
-        var clazz4 = NSManagedObject(entity: entity4!, insertInto: managerObjectContext) as! Agenus
-        clazz4.name = names[3]
-        var entity5 = NSEntityDescription.entity(forEntityName: array[4], in: managerObjectContext)
-        //Get the ManagedObject
-        
-        var clazz5 = NSManagedObject(entity: entity5!, insertInto: managerObjectContext) as! Aspecies
-        clazz5.name = names[4]
-        clazz5.ingenus = clazz4
-        clazz5.latinName = "Hirundo daurica Linnaues"
-        clazz5.distribution = "分布于新疆以及西藏北部意外的广大地区"
-        clazz5.habit = ""
-        clazz5.distribution = "全长 170 - 185 mm ..."
-        try? managerObjectContext.save()
-    
         
         
     }
@@ -84,6 +154,9 @@ class TableViewController: UITableViewController {
         super.viewDidLoad()
         
         self.title = "首页"
+        //判断 如果登陆状态 则 往下执行  否则 跳转到登录页面
+        
+        
         
         initTableData()
         //        initTableView()
@@ -135,7 +208,7 @@ class TableViewController: UITableViewController {
     //MARK:- TableViewDelegate
     //**update careful
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
+       //session  判断
       
         
         
@@ -149,6 +222,8 @@ class TableViewController: UITableViewController {
                 vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "start")
             case 1:
                 vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "query")
+            case 2:
+                vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "yyk")
             case 5:
                 vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "notice")
             case 8:

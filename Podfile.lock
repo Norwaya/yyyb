@@ -7,8 +7,10 @@ PODS:
   - Lightbox (1.0.0):
     - Hue
     - Sugar
+  - Masonry (1.0.2)
   - MMNumberKeyboard (0.1.5)
   - Sugar (3.0.0)
+  - SwiftyJSON (3.1.3)
 
 DEPENDENCIES:
   - Alamofire
@@ -17,8 +19,10 @@ DEPENDENCIES:
   - ImagePicker
   - IQKeyboardManagerSwift
   - Lightbox (from `https://github.com/hyperoslo/Lightbox.git`, branch `swift-3`)
+  - Masonry
   - MMNumberKeyboard
   - Sugar
+  - SwiftyJSON
 
 EXTERNAL SOURCES:
   Lightbox:
@@ -37,9 +41,11 @@ SPEC CHECKSUMS:
   ImagePicker: 81175d36c2852cb543cb4f5d6c19e28f3e8d90eb
   IQKeyboardManagerSwift: 58bbcf46b5cf9fd4ed625d28a60cb2fbae4ab0f4
   Lightbox: e4523e8cf3261cbc833d0e76ae4dae774731d115
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MMNumberKeyboard: 12da79571d08aca21566534a74726c5469aed29a
   Sugar: 079e1375b76c8f0693474417836ef098f507ac50
+  SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
 
-PODFILE CHECKSUM: 5c30f2136662d4fb57d17899e614bd9fb13e5f90
+PODFILE CHECKSUM: db41783b007eb3db2e4317f108ebc87f5e888c97
 
 COCOAPODS: 1.1.1

@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import IQKeyboardManagerSwift
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -54,10 +55,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+        
+        
     }
 
+    func applicationWillTerminate(){
+        print("监听是否进入后台或被kill")
+    }
     // MARK: - Core Data stack
-    lazy var coreData = CoreDataStack()
+    
+    
+    
+//    lazy var coreData = CoreDataStack()
+    
+    
+    
+    
     @available(iOS 10.0, *)
     lazy var persistentContainer: NSPersistentContainer = {
         /*
@@ -67,7 +80,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          error conditions that could cause the creation of the store to fail.
         */
         let container = NSPersistentContainer(name: "yyyb")
-//        self.seedCoreDataContainerIfFirstLaunch()
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -87,52 +99,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return container
     }()
+   
     
-//    var modelName = "yyyb"
-//    func seedCoreDataContainerIfFirstLaunch() {
-//        
-//        // 1
-//        let previouslyLaunched = UserDefaults.standard.bool(forKey: "previouslyLaunched")
-//        print("userdefaults ->\(previouslyLaunched)")
-//        if !previouslyLaunched {
-//            UserDefaults.standard.set(true, forKey: "previouslyLaunched")
-//            
-//            // Default directory where the CoreDataStack will store its files
-//            let directory = NSPersistentContainer.defaultDirectoryURL()
-//            let url = directory.appendingPathComponent(modelName + ".sqlite")
-//            
-//            // 2: Copying the SQLite file
-//            let seededDatabaseURL = Bundle.main.url(forResource: modelName, withExtension: "sqlite")!
-//            _ = try? FileManager.default.removeItem(at: url)
-//            do {
-//                try FileManager.default.copyItem(at: seededDatabaseURL, to: url)
-//            } catch let nserror as NSError {
-//                fatalError("Error: \(nserror.localizedDescription)")
-//            }
-//            
-//            // 3: Copying the SHM file
-//            let seededSHMURL = Bundle.main.url(forResource: modelName, withExtension: "sqlite-shm")!
-//            let shmURL = directory.appendingPathComponent(modelName + ".sqlite-shm")
-//            _ = try? FileManager.default.removeItem(at: shmURL)
-//            do {
-//                try FileManager.default.copyItem(at: seededSHMURL, to: shmURL)
-//            } catch let nserror as NSError {
-//                fatalError("Error: \(nserror.localizedDescription)")
-//            }
-//            
-//            // 4: Copying the WAL file
-//            let seededWALURL = Bundle.main.url(forResource: modelName, withExtension: "sqlite-wal")!
-//            let walURL = directory.appendingPathComponent(modelName + ".sqlite-wal")
-//            _ = try? FileManager.default.removeItem(at: walURL)
-//            do {
-//                try FileManager.default.copyItem(at: seededWALURL, to: walURL)
-//            } catch let nserror as NSError {
-//                fatalError("Error: \(nserror.localizedDescription)")
-//            }
-//            
-//            print("Seeded Core Data")
-//        }
-//    }
+    
+    var modelName = "yyyb"
+    func seedCoreDataContainerIfFirstLaunch() {
+        
+        // 1
+        let previouslyLaunched = UserDefaults.standard.bool(forKey: "previouslyLaunched")
+        print("userdefaults ->\(previouslyLaunched)")
+        if !previouslyLaunched {
+            UserDefaults.standard.set(true, forKey: "previouslyLaunched")
+            
+            // Default directory where the CoreDataStack will store its files
+            let directory = NSPersistentContainer.defaultDirectoryURL()
+            let url = directory.appendingPathComponent(modelName + ".sqlite")
+            
+            // 2: Copying the SQLite file
+            let seededDatabaseURL = Bundle.main.url(forResource: modelName, withExtension: "sqlite")!
+            _ = try? FileManager.default.removeItem(at: url)
+            do {
+                try FileManager.default.copyItem(at: seededDatabaseURL, to: url)
+            } catch let nserror as NSError {
+                fatalError("Error: \(nserror.localizedDescription)")
+            }
+            
+            // 3: Copying the SHM file
+            let seededSHMURL = Bundle.main.url(forResource: modelName, withExtension: "sqlite-shm")!
+            let shmURL = directory.appendingPathComponent(modelName + ".sqlite-shm")
+            _ = try? FileManager.default.removeItem(at: shmURL)
+            do {
+                try FileManager.default.copyItem(at: seededSHMURL, to: shmURL)
+            } catch let nserror as NSError {
+                fatalError("Error: \(nserror.localizedDescription)")
+            }
+            
+            // 4: Copying the WAL file
+            let seededWALURL = Bundle.main.url(forResource: modelName, withExtension: "sqlite-wal")!
+            let walURL = directory.appendingPathComponent(modelName + ".sqlite-wal")
+            _ = try? FileManager.default.removeItem(at: walURL)
+            do {
+                try FileManager.default.copyItem(at: seededWALURL, to: walURL)
+            } catch let nserror as NSError {
+                fatalError("Error: \(nserror.localizedDescription)")
+            }
+            
+            print("Seeded Core Data")
+        }
+    }
     // MARK: - Core Data Saving support
 
     func saveContext () {
@@ -140,7 +154,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 10.0, *) {
             context = persistentContainer.viewContext
         } else {
-            context = NSManagedObjectContext.init(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
+            context =
+                NSManagedObjectContext.init(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
         }
         if context.hasChanges {
             do {

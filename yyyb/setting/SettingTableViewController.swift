@@ -7,10 +7,10 @@
 //
 
 import UIKit
-
+import CoreData
 class SettingTableViewController: UITableViewController {
 
-    let array = ["版本更新","离线地图","数据更新","关于","退出"]
+    let array = ["版本更新","离线地图","数据更新","关于","更换账号","注销"]
     var cellItems: Array<Array<String>>!
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isToolbarHidden = true
@@ -42,25 +42,44 @@ class SettingTableViewController: UITableViewController {
         case 3:
             print(3)
         case 4:
-            print(4)
+            // 跳转到登陆界面
+            vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "login")
+            self.navigationController?.pushViewController(vcInstance!, animated: true)
+        
+        case 5:
+            //注销 删除本地数据并 跳转登陆界面
+            
+            if clearUserInfo(){
+                vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "login")
+                self.navigationController?.pushViewController(vcInstance!, animated: true)
+            }
+            
         default:
             print("")
         }
-        
-        
-        
-        
-        
-        
-//        let title = titles[indexPath.section][indexPath.row]
-//        let vcClass = classNames[indexPath.section][indexPath.row]
-//        let vcInstance = vcClass.init()
-//        vcInstance.title = title
-//        
-//        let destimationVC = indexPath.row == 0 ? vcMain : vcInstance
        
     }
-
+    func clearUserInfo() -> Bool{
+        let ud = UserDefaults.standard
+        ud.removeObject(forKey: "currentUserId")
+        ud.synchronize()
+        
+        let app = UIApplication.shared.delegate as! AppDelegate
+        let managerObjectContext = app.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>.init(entityName: "User")
+        
+        do {
+            let result = try managerObjectContext.fetch(request)
+            for user in result{
+                managerObjectContext.delete(user as! NSManagedObject)
+            }
+            try managerObjectContext.save()
+            return true
+        } catch  {
+            
+        }
+        return false
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

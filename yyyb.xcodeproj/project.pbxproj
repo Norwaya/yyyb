@@ -8,12 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		30A2B13EB45B51A038260371 /* Pods_yyyb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7FE58936FF5507A67F00879 /* Pods_yyyb.framework */; };
+		590A59691DF952F2002B0214 /* yyyb.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 590A59671DF952F2002B0214 /* yyyb.xcdatamodeld */; };
+		590A596F1DF96432002B0214 /* yydm.json in Resources */ = {isa = PBXBuildFile; fileRef = 590A596E1DF96432002B0214 /* yydm.json */; };
+		590A59711DFA3440002B0214 /* yy.json in Resources */ = {isa = PBXBuildFile; fileRef = 590A59701DFA3440002B0214 /* yy.json */; };
+		590C2F2B1DFE302F008CF654 /* YykViewControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590C2F2A1DFE302F008CF654 /* YykViewControllerTableViewController.swift */; };
+		590C2F2D1DFE3073008CF654 /* Yyk2TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590C2F2C1DFE3073008CF654 /* Yyk2TableViewController.swift */; };
+		590C2F2F1DFE307F008CF654 /* Yyk3TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590C2F2E1DFE307F008CF654 /* Yyk3TableViewController.swift */; };
+		590C2F311DFE3091008CF654 /* Yyk4TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590C2F301DFE3091008CF654 /* Yyk4TableViewController.swift */; };
+		590C2F331DFE30A8008CF654 /* Yyk5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590C2F321DFE30A8008CF654 /* Yyk5ViewController.swift */; };
+		590C2F421DFE8650008CF654 /* NSString+ZLStringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 590C2F371DFE8650008CF654 /* NSString+ZLStringSize.m */; };
+		590C2F431DFE8650008CF654 /* ZLDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 590C2F3B1DFE8650008CF654 /* ZLDropDownMenu.m */; };
+		590C2F441DFE8650008CF654 /* ZLDropDownMenuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 590C2F3D1DFE8650008CF654 /* ZLDropDownMenuCollectionViewCell.m */; };
+		590C2F451DFE8650008CF654 /* ZLDropDownMenuTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 590C2F3F1DFE8650008CF654 /* ZLDropDownMenuTitleButton.m */; };
+		590C2F461DFE8650008CF654 /* ZLDropDownMenuUICalc.m in Sources */ = {isa = PBXBuildFile; fileRef = 590C2F411DFE8650008CF654 /* ZLDropDownMenuUICalc.m */; };
 		592473791DE2D71B0095C683 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592473781DE2D71B0095C683 /* AddViewController.swift */; };
 		5925E72E1DED236D00F75452 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5925E72D1DED236D00F75452 /* SettingTableViewController.swift */; };
 		5925E7301DED2DF800F75452 /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5925E72F1DED2DF800F75452 /* UpdateViewController.swift */; };
 		592CA8261DF0FA3400A863B5 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592CA8251DF0FA3300A863B5 /* CoreDataStack.swift */; };
 		592CA8291DF1093900A863B5 /* YyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592CA8281DF1093900A863B5 /* YyViewController.swift */; };
 		592CA82C1DF24E5F00A863B5 /* TraceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592CA82B1DF24E5F00A863B5 /* TraceViewController.swift */; };
+		5935CA661DF7C95000D91856 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5935CA651DF7C95000D91856 /* LoginViewController.swift */; };
 		598CA2531DED63F200A02CB0 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B814611DE002D900F341AC /* libz.tbd */; };
 		598CA2541DED63FE00A02CB0 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B814671DE0033300F341AC /* JavaScriptCore.framework */; };
 		598CA2551DED641700A02CB0 /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5925E74C1DED4F4F00F75452 /* AMapFoundationKit.framework */; };
@@ -82,9 +96,10 @@
 		598CA5801DEE636900A02CB0 /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 598CA57F1DEE636900A02CB0 /* AMap.bundle */; };
 		598CA5831DEE8EF000A02CB0 /* QueryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598CA5821DEE8EF000A02CB0 /* QueryViewController.swift */; };
 		5993C9201DF00A8700EFA414 /* CustomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5993C91F1DF00A8700EFA414 /* CustomScrollView.swift */; };
+		59992ED11DF7E000003AB3B1 /* ResponFromHttp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59992ED01DF7E000003AB3B1 /* ResponFromHttp.swift */; };
+		59992EFD1DF92F42003AB3B1 /* Jcxx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59992EFC1DF92F42003AB3B1 /* Jcxx.swift */; };
 		59B814391DE0012200F341AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B814381DE0012200F341AC /* AppDelegate.swift */; };
 		59B8143E1DE0012200F341AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59B8143C1DE0012200F341AC /* Main.storyboard */; };
-		59B814411DE0012300F341AC /* yyyb.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 59B8143F1DE0012300F341AC /* yyyb.xcdatamodeld */; };
 		59B814431DE0012300F341AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59B814421DE0012300F341AC /* Assets.xcassets */; };
 		59B814461DE0012300F341AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59B814441DE0012300F341AC /* LaunchScreen.storyboard */; };
 		59B814831DE0200E00F341AC /* BackgroundLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B8147A1DE0200E00F341AC /* BackgroundLocationViewController.swift */; };
@@ -107,10 +122,29 @@
 		59C64DF01DE7EBDB00167B36 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C64DEF1DE7EBDB00167B36 /* CustomButton.swift */; };
 		59C64DF41DE7F6DC00167B36 /* AnimalSpeciesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C64DF31DE7F6DC00167B36 /* AnimalSpeciesTableViewController.swift */; };
 		59C64DFA1DE821E100167B36 /* ExpressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C64DF91DE821E100167B36 /* ExpressViewController.swift */; };
+		59CF33491DFE972E009F111C /* YykSeatchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF33481DFE972E009F111C /* YykSeatchTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		098D932C39CC62D27DEA0874 /* Pods-yyyb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yyyb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-yyyb/Pods-yyyb.debug.xcconfig"; sourceTree = "<group>"; };
+		590A59681DF952F2002B0214 /* yyyb.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = yyyb.xcdatamodel; sourceTree = "<group>"; };
+		590A596E1DF96432002B0214 /* yydm.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = yydm.json; sourceTree = SOURCE_ROOT; };
+		590A59701DFA3440002B0214 /* yy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = yy.json; sourceTree = SOURCE_ROOT; };
+		590C2F2A1DFE302F008CF654 /* YykViewControllerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YykViewControllerTableViewController.swift; sourceTree = "<group>"; };
+		590C2F2C1DFE3073008CF654 /* Yyk2TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Yyk2TableViewController.swift; sourceTree = "<group>"; };
+		590C2F2E1DFE307F008CF654 /* Yyk3TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Yyk3TableViewController.swift; sourceTree = "<group>"; };
+		590C2F301DFE3091008CF654 /* Yyk4TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Yyk4TableViewController.swift; sourceTree = "<group>"; };
+		590C2F321DFE30A8008CF654 /* Yyk5ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Yyk5ViewController.swift; sourceTree = "<group>"; };
+		590C2F361DFE8650008CF654 /* NSString+ZLStringSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZLStringSize.h"; sourceTree = "<group>"; };
+		590C2F371DFE8650008CF654 /* NSString+ZLStringSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZLStringSize.m"; sourceTree = "<group>"; };
+		590C2F3A1DFE8650008CF654 /* ZLDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLDropDownMenu.h; sourceTree = "<group>"; };
+		590C2F3B1DFE8650008CF654 /* ZLDropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLDropDownMenu.m; sourceTree = "<group>"; };
+		590C2F3C1DFE8650008CF654 /* ZLDropDownMenuCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLDropDownMenuCollectionViewCell.h; sourceTree = "<group>"; };
+		590C2F3D1DFE8650008CF654 /* ZLDropDownMenuCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLDropDownMenuCollectionViewCell.m; sourceTree = "<group>"; };
+		590C2F3E1DFE8650008CF654 /* ZLDropDownMenuTitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLDropDownMenuTitleButton.h; sourceTree = "<group>"; };
+		590C2F3F1DFE8650008CF654 /* ZLDropDownMenuTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLDropDownMenuTitleButton.m; sourceTree = "<group>"; };
+		590C2F401DFE8650008CF654 /* ZLDropDownMenuUICalc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLDropDownMenuUICalc.h; sourceTree = "<group>"; };
+		590C2F411DFE8650008CF654 /* ZLDropDownMenuUICalc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLDropDownMenuUICalc.m; sourceTree = "<group>"; };
 		592473781DE2D71B0095C683 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		5925E72D1DED236D00F75452 /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		5925E72F1DED2DF800F75452 /* UpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +154,7 @@
 		592CA8251DF0FA3300A863B5 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		592CA8281DF1093900A863B5 /* YyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YyViewController.swift; sourceTree = "<group>"; };
 		592CA82B1DF24E5F00A863B5 /* TraceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceViewController.swift; sourceTree = "<group>"; };
+		5935CA651DF7C95000D91856 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		598CA2501DED610700A02CB0 /* Swift-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Swift-Bridging-Header.h"; sourceTree = "<group>"; };
 		598CA2511DED636300A02CB0 /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MAMapKit.framework; path = ../../../Downloads/AMap_iOS_3DMap_Demo_V4.4.0/Frameworks/MAMapKit.framework; sourceTree = "<group>"; };
 		598CA25D1DED666600A02CB0 /* OfflineDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineDetailViewController.h; sourceTree = "<group>"; };
@@ -184,10 +219,11 @@
 		598CA57F1DEE636900A02CB0 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AMap.bundle; path = Frameworks/MAMapKit.framework/AMap.bundle; sourceTree = "<group>"; };
 		598CA5821DEE8EF000A02CB0 /* QueryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryViewController.swift; sourceTree = "<group>"; };
 		5993C91F1DF00A8700EFA414 /* CustomScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomScrollView.swift; sourceTree = "<group>"; };
+		59992ED01DF7E000003AB3B1 /* ResponFromHttp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponFromHttp.swift; sourceTree = "<group>"; };
+		59992EFC1DF92F42003AB3B1 /* Jcxx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jcxx.swift; sourceTree = "<group>"; };
 		59B814351DE0012200F341AC /* yyyb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yyyb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59B814381DE0012200F341AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		59B8143D1DE0012200F341AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		59B814401DE0012300F341AC /* yyyb.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = yyyb.xcdatamodel; sourceTree = "<group>"; };
 		59B814421DE0012300F341AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		59B814451DE0012300F341AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		59B814471DE0012300F341AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -221,6 +257,7 @@
 		59C64DEF1DE7EBDB00167B36 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		59C64DF31DE7F6DC00167B36 /* AnimalSpeciesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalSpeciesTableViewController.swift; sourceTree = "<group>"; };
 		59C64DF91DE821E100167B36 /* ExpressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressViewController.swift; sourceTree = "<group>"; };
+		59CF33481DFE972E009F111C /* YykSeatchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YykSeatchTableViewController.swift; sourceTree = "<group>"; };
 		D95EADF894722EDFF3C11FFB /* Pods-yyyb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yyyb.release.xcconfig"; path = "Pods/Target Support Files/Pods-yyyb/Pods-yyyb.release.xcconfig"; sourceTree = "<group>"; };
 		F7FE58936FF5507A67F00879 /* Pods_yyyb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yyyb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -257,6 +294,52 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		590C2F291DFE300F008CF654 /* yyk */ = {
+			isa = PBXGroup;
+			children = (
+				590C2F2A1DFE302F008CF654 /* YykViewControllerTableViewController.swift */,
+				590C2F2C1DFE3073008CF654 /* Yyk2TableViewController.swift */,
+				590C2F2E1DFE307F008CF654 /* Yyk3TableViewController.swift */,
+				590C2F301DFE3091008CF654 /* Yyk4TableViewController.swift */,
+				590C2F321DFE30A8008CF654 /* Yyk5ViewController.swift */,
+				59CF33481DFE972E009F111C /* YykSeatchTableViewController.swift */,
+			);
+			name = yyk;
+			sourceTree = "<group>";
+		};
+		590C2F341DFE8650008CF654 /* ZLDropDownMenu */ = {
+			isa = PBXGroup;
+			children = (
+				590C2F351DFE8650008CF654 /* Categories */,
+				590C2F381DFE8650008CF654 /* Utils */,
+				590C2F3A1DFE8650008CF654 /* ZLDropDownMenu.h */,
+				590C2F3B1DFE8650008CF654 /* ZLDropDownMenu.m */,
+				590C2F3C1DFE8650008CF654 /* ZLDropDownMenuCollectionViewCell.h */,
+				590C2F3D1DFE8650008CF654 /* ZLDropDownMenuCollectionViewCell.m */,
+				590C2F3E1DFE8650008CF654 /* ZLDropDownMenuTitleButton.h */,
+				590C2F3F1DFE8650008CF654 /* ZLDropDownMenuTitleButton.m */,
+				590C2F401DFE8650008CF654 /* ZLDropDownMenuUICalc.h */,
+				590C2F411DFE8650008CF654 /* ZLDropDownMenuUICalc.m */,
+			);
+			path = ZLDropDownMenu;
+			sourceTree = "<group>";
+		};
+		590C2F351DFE8650008CF654 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				590C2F361DFE8650008CF654 /* NSString+ZLStringSize.h */,
+				590C2F371DFE8650008CF654 /* NSString+ZLStringSize.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		590C2F381DFE8650008CF654 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		5925E72C1DED235300F75452 /* setting */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +364,14 @@
 				592CA8281DF1093900A863B5 /* YyViewController.swift */,
 			);
 			name = yyybk;
+			sourceTree = "<group>";
+		};
+		5935CA641DF7C94400D91856 /* login */ = {
+			isa = PBXGroup;
+			children = (
+				5935CA651DF7C95000D91856 /* LoginViewController.swift */,
+			);
+			name = login;
 			sourceTree = "<group>";
 		};
 		598CA25C1DED666600A02CB0 /* offlineMap */ = {
@@ -410,6 +501,29 @@
 			name = query;
 			sourceTree = "<group>";
 		};
+		59992ECC1DF7DF0C003AB3B1 /* bean */ = {
+			isa = PBXGroup;
+			children = (
+				59992ED01DF7E000003AB3B1 /* ResponFromHttp.swift */,
+				59992EFC1DF92F42003AB3B1 /* Jcxx.swift */,
+			);
+			name = bean;
+			sourceTree = "<group>";
+		};
+		59992ED21DF7E776003AB3B1 /* constant */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = constant;
+			sourceTree = "<group>";
+		};
+		59992ED61DF7F3A6003AB3B1 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
 		59B8142C1DE0012200F341AC = {
 			isa = PBXGroup;
 			children = (
@@ -435,8 +549,14 @@
 		59B814371DE0012200F341AC /* yyyb */ = {
 			isa = PBXGroup;
 			children = (
+				590A59701DFA3440002B0214 /* yy.json */,
+				590A596E1DF96432002B0214 /* yydm.json */,
+				590A59671DF952F2002B0214 /* yyyb.xcdatamodeld */,
+				590C2F341DFE8650008CF654 /* ZLDropDownMenu */,
+				59992ED61DF7F3A6003AB3B1 /* utils */,
+				59992ED21DF7E776003AB3B1 /* constant */,
+				59992ECC1DF7DF0C003AB3B1 /* bean */,
 				592CA8241DF0FA0500A863B5 /* coreData */,
-				5925E72C1DED235300F75452 /* setting */,
 				59C64DB01DE4438500167B36 /* protocol */,
 				59B8148B1DE02CE500F341AC /* customCell */,
 				59B8148A1DE029DD00F341AC /* controller */,
@@ -449,7 +569,6 @@
 				59B814421DE0012300F341AC /* Assets.xcassets */,
 				59B814441DE0012300F341AC /* LaunchScreen.storyboard */,
 				59B814471DE0012300F341AC /* Info.plist */,
-				59B8143F1DE0012300F341AC /* yyyb.xcdatamodeld */,
 			);
 			path = yyyb;
 			sourceTree = "<group>";
@@ -532,6 +651,9 @@
 		59B8148A1DE029DD00F341AC /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				5925E72C1DED235300F75452 /* setting */,
+				590C2F291DFE300F008CF654 /* yyk */,
+				5935CA641DF7C94400D91856 /* login */,
 				592CA8271DF108FD00A863B5 /* yyybk */,
 				59B814901DE03A5200F341AC /* monistor */,
 				598CA5811DEE8EC200A02CB0 /* query */,
@@ -717,8 +839,10 @@
 				598CA4121DED6A4700A02CB0 /* GWF.png in Resources */,
 				598CA3F41DED6A4700A02CB0 /* heatMapData.json in Resources */,
 				598CA40A1DED6A4700A02CB0 /* custtexture_slow.png in Resources */,
+				590A59711DFA3440002B0214 /* yy.json in Resources */,
 				598CA4021DED6A4700A02CB0 /* arrow_right@2x.png in Resources */,
 				598CA4071DED6A4700A02CB0 /* custtexture.png in Resources */,
+				590A596F1DF96432002B0214 /* yydm.json in Resources */,
 				598CA4141DED6A4700A02CB0 /* increase@2x.png in Resources */,
 				598CA3FE1DED6A4700A02CB0 /* animatedTrain_2.png in Resources */,
 				598CA3F81DED6A4700A02CB0 /* icon@2x.png in Resources */,
@@ -802,6 +926,7 @@
 			files = (
 				59B814841DE0200E00F341AC /* MonitoringRegionViewController.swift in Sources */,
 				598CA5831DEE8EF000A02CB0 /* QueryViewController.swift in Sources */,
+				590C2F311DFE3091008CF654 /* Yyk4TableViewController.swift in Sources */,
 				598CA2651DED666600A02CB0 /* OfflineViewController.m in Sources */,
 				59C64DF01DE7EBDB00167B36 /* CustomButton.swift in Sources */,
 				592CA8291DF1093900A863B5 /* YyViewController.swift in Sources */,
@@ -811,22 +936,35 @@
 				592CA8261DF0FA3400A863B5 /* CoreDataStack.swift in Sources */,
 				59B814871DE0200E00F341AC /* SingleLocationAloneViewController.swift in Sources */,
 				59B814831DE0200E00F341AC /* BackgroundLocationViewController.swift in Sources */,
+				590C2F331DFE30A8008CF654 /* Yyk5ViewController.swift in Sources */,
 				5925E7301DED2DF800F75452 /* UpdateViewController.swift in Sources */,
+				59992EFD1DF92F42003AB3B1 /* Jcxx.swift in Sources */,
 				59C64DF41DE7F6DC00167B36 /* AnimalSpeciesTableViewController.swift in Sources */,
+				5935CA661DF7C95000D91856 /* LoginViewController.swift in Sources */,
+				590C2F2F1DFE307F008CF654 /* Yyk3TableViewController.swift in Sources */,
+				590C2F2D1DFE3073008CF654 /* Yyk2TableViewController.swift in Sources */,
+				590C2F431DFE8650008CF654 /* ZLDropDownMenu.m in Sources */,
 				598CA5771DED80C400A02CB0 /* NoticeViewController.swift in Sources */,
 				59C64DB61DE56C6F00167B36 /* ItemTextField.swift in Sources */,
+				590C2F451DFE8650008CF654 /* ZLDropDownMenuTitleButton.m in Sources */,
 				59C64DAF1DE442FD00167B36 /* DailyViewController.swift in Sources */,
-				59B814411DE0012300F341AC /* yyyb.xcdatamodeld in Sources */,
+				590C2F461DFE8650008CF654 /* ZLDropDownMenuUICalc.m in Sources */,
+				59992ED11DF7E000003AB3B1 /* ResponFromHttp.swift in Sources */,
 				59B8149C1DE2930A00F341AC /* MapViewController.swift in Sources */,
 				59B814961DE03D9800F341AC /* TableViewController.swift in Sources */,
 				598CA2641DED666600A02CB0 /* OfflineDetailViewController.m in Sources */,
 				59B814891DE0299300F341AC /* MainViewController.swift in Sources */,
 				59B814991DE0542A00F341AC /* StartMonistroViewController.swift in Sources */,
 				59C64DFA1DE821E100167B36 /* ExpressViewController.swift in Sources */,
+				590A59691DF952F2002B0214 /* yyyb.xcdatamodeld in Sources */,
+				59CF33491DFE972E009F111C /* YykSeatchTableViewController.swift in Sources */,
 				59B814391DE0012200F341AC /* AppDelegate.swift in Sources */,
 				598CA2661DED666600A02CB0 /* MAHeaderView.m in Sources */,
+				590C2F2B1DFE302F008CF654 /* YykViewControllerTableViewController.swift in Sources */,
+				590C2F441DFE8650008CF654 /* ZLDropDownMenuCollectionViewCell.m in Sources */,
 				5925E72E1DED236D00F75452 /* SettingTableViewController.swift in Sources */,
 				59B8148E1DE02D1C00F341AC /* CustomCellTableViewCell.swift in Sources */,
+				590C2F421DFE8650008CF654 /* NSString+ZLStringSize.m in Sources */,
 				59C64DB21DE4442300167B36 /* PassDictionary.swift in Sources */,
 				592CA82C1DF24E5F00A863B5 /* TraceViewController.swift in Sources */,
 				59B814851DE0200E00F341AC /* SerialLocationViewController.swift in Sources */,
@@ -964,6 +1102,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = yyyb/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bz.yyyb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -989,6 +1128,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = yyyb/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bz.yyyb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1023,12 +1163,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		59B8143F1DE0012300F341AC /* yyyb.xcdatamodeld */ = {
+		590A59671DF952F2002B0214 /* yyyb.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				59B814401DE0012300F341AC /* yyyb.xcdatamodel */,
+				590A59681DF952F2002B0214 /* yyyb.xcdatamodel */,
 			);
-			currentVersion = 59B814401DE0012300F341AC /* yyyb.xcdatamodel */;
+			currentVersion = 590A59681DF952F2002B0214 /* yyyb.xcdatamodel */;
 			path = yyyb.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

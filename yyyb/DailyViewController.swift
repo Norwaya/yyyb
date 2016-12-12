@@ -21,46 +21,145 @@ class DailyViewController: UIViewController,PassDictionary{
     
     @IBAction func btn_save(_ sender: UIButton) {
         
-        var request = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Aspecies")
-        
-        let app = UIApplication.shared.delegate as! AppDelegate
-        var managerObjectContext: NSManagedObjectContext?
-        if #available(iOS 10.0, *) {
-             managerObjectContext = app.persistentContainer.viewContext
-        } else {
-            // Fallback on earlier versions
-            managerObjectContext = app.coreData.context
-        }
-        var result = try? managerObjectContext?.fetch(request) as! [Aspecies] as Array
-        for users in result! {
-            print(users.name)
-            print(users.ingenus?.name)
-        }
-//        targetDic[id]?.animalSpecial
-//        print("\(btnSpecial?.id)->\(targetDic[(btnSpecial?.id)!]?.animalSpecial)")
-//        for animal in targetDic.values{
-//            if (animal.animalSpecial == "选择生境特征"){
-//                
-//            }else if(animal.animalNum == nil || animal.animalNum == ""){
-//                
-//                let alertController = UIAlertController(title:"标题", message:"这个是UIAlertController的默认样式", preferredStyle: UIAlertControllerStyle.alert)
-//            
-//                
-//                let cancelAction = UIAlertAction(title:"取消", style: UIAlertActionStyle.cancel, handler: nil)
-//                
-//                let okAction = UIAlertAction(title:"好的", style: UIAlertActionStyle.default, handler: nil)
-//                
-//                alertController.addAction(cancelAction)
-//                
-//                alertController.addAction(okAction)
-//                self.present(alertController, animated:true, completion: nil)
-//                break
-//            }
+//        var request = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Aspecies")
+//        
+//        let app = UIApplication.shared.delegate as! AppDelegate
+//        var managerObjectContext = app.persistentContainer.viewContext
+//        
+//        var result = try? managerObjectContext.fetch(request) as! [Aspecies] as Array
+//        for users in result! {
+//            print(users.name)
+//            print(users.ingenus?.name)
 //        }
+        // 检查字段填写
+        for animal in targetDic.values{
+            if (animal.animalSpecial == "选择"){
+                showAlertController(title: "提示", msg: "请选择生境特征", ok: "确定")
+                return
+            }else if(animal.animalNum != nil && animal.animalNum != "" && animal.animalNum != "0"){
+                showAlertController(title: "提示", msg: "动物数量不能为空", ok: "确定")
+                return
+            }
+        }
+        // 保存到数据库
+        saveData()
        
     }
     @IBAction func btn_return(_ sender: UIButton) {
     }
+    
+    func showAlertController(title: String,msg: String,ok: String){
+        let alertController = UIAlertController(title:title, message:msg  , preferredStyle: UIAlertControllerStyle.alert)
+        
+        
+//        let cancelAction = UIAlertAction(title:cancel, style: UIAlertActionStyle.cancel, handler: nil)
+        
+        let okAction = UIAlertAction(title:ok, style: UIAlertActionStyle.default, handler: nil)
+        
+//        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated:true, completion: nil)
+    }
+    
+    //save dic to datebase
+    func saveData(){
+        do {
+            var images:Array<UIImage> = Array()
+            
+            let app = UIApplication.shared.delegate as! AppDelegate
+            let managerObjectContext = app.persistentContainer.viewContext
+            let entity = NSEntityDescription.entity(forEntityName: "Rbxx", in: managerObjectContext)
+            for animal in targetDic.values{
+
+                //Get the ManagedObject
+                
+                let rbxx = NSManagedObject(entity: entity!, insertInto: managerObjectContext) as! Rbxx
+                let infoFromUser = getFromUser()
+                rbxx.ssbm = infoFromUser.ssbm
+                rbxx.lrsj = infoFromUser.xm
+                rbxx.jd = Double(animal.lon)!
+                rbxx.wd = Double(animal.lat)!
+                rbxx.zqsl = animal.animalNum
+                // time
+                let format = DateFormatter.init()
+                format.dateFormat = "yyyy-MM-dd"
+                let timeZone = NSTimeZone.system
+                let interval = timeZone.secondsFromGMT()
+                let currentDate = Date().addingTimeInterval(TimeInterval(interval))
+                rbxx.lrsj = format.string(from: currentDate)
+                rbxx.wzdm = getWzdm(name: animal.animal!)
+                
+                for image in animal.images{
+                    images.append(image)
+                }
+                
+                try managerObjectContext.save()
+            }
+            print("save uiimage")
+            saveImages(arr: images)
+        } catch  {
+            
+        }
+       
+    }
+    func getWzdm(name: String) -> String {
+        let app = UIApplication.shared.delegate as! AppDelegate
+        let managerObjectContext = app.persistentContainer.viewContext
+        
+        let request = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Yydm")
+        request.predicate = NSPredicate.init(format: "yymc CONTAINS %@", name)
+        do {
+            let result = try managerObjectContext.fetch(request) as! [Yydm] as Array
+            
+            return result[0].yymc!
+        } catch  {
+            
+        }
+        return "未知物种"
+    }
+    func getFromUser() -> (xm:String,ssbm:String){
+        let app = UIApplication.shared.delegate as! AppDelegate
+        let managerObjectContext = app.persistentContainer.viewContext
+        
+        let request = NSFetchRequest<NSFetchRequestResult>.init(entityName: "User")
+        request.predicate = NSPredicate.init(format: "yhm CONTAINS %@", UserDefaults.standard.string(forKey: "currentUserId")!)
+        let result = try? managerObjectContext.fetch(request) as! [User] as Array
+        let user = result?[0]
+        return (user!.xm ?? "",user!.ssbm!)
+    }
+    func saveImages(arr: Array<UIImage>){
+        if !(arr.count > 0){
+            return
+        }
+        let home = NSHomeDirectory()
+        let path = home.appending("/doc/pic.plist")
+        let array = NSMutableArray.init()
+        for image in arr{
+            let data = UIImageJPEGRepresentation(image as! UIImage, 1.0)
+            let strimage64 = data?.base64EncodedString()
+            array.adding(strimage64)
+        }
+        if array.write(toFile: path, atomically: true){
+            NSLog("write success")
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 //    var delegate: PassDictionary?
     var array: Array<String>?
     var targetDic: Dictionary = [Int:Daily]()
@@ -259,10 +358,10 @@ extension DailyViewController: ImagePickerDelegate{
         imagePicker.dismiss(animated: true, completion: nil)
         let id = (btnSpecial?.id)!
         var daily = targetDic[id]
-        daily?.images?.removeAll()
+        daily?.images.removeAll()
         for image in images{
             print(image)
-            daily?.images?.append(image)
+            daily?.images.append(image)
         }
         targetDic.updateValue(daily!, forKey: id)
         
@@ -285,10 +384,10 @@ extension DailyViewController: MMNumberKeyboardDelegate{
 }
 struct Daily{
     var animal: String?
-    var images: Array<UIImage>?
+    var images: Array<UIImage> = Array()
     var imageNum: Int!{
         get{
-            return images!.count
+            return images.count
         }
     }
     var lat: String!

@@ -14,4 +14,9 @@ target 'yyyb' do #工程名字
     pod 'MMNumberKeyboard'
     # keyboard manager
     pod 'IQKeyboardManagerSwift'
+    
+    # JSON for Swift
+    pod 'SwiftyJSON'
+    
+    pod 'Masonry'
 end
