@@ -47,6 +47,13 @@
         <attribute name="sex" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="unit" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Jwd" representedClassName="Jwd" syncable="YES" codeGenerationType="class">
+        <attribute name="bgbh" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imei" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="jd" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wd" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="xjsj" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Kbxx" representedClassName="Kbxx" syncable="YES" codeGenerationType="class">
         <attribute name="bgbh" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cbjl" optional="YES" attributeType="String" syncable="YES"/>
@@ -54,16 +61,19 @@
         <attribute name="fjsc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fxdd" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fxsj" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isupload" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="jd" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lrsj" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sjtz" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ssbm" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="swsl" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="swsl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="wd" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="wzid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="xccl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ycdwcl" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="ycsl" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="zqsl" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="ycsl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zqsl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="zqtz" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="zzms" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -74,20 +84,24 @@
         <attribute name="unit" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Pic" representedClassName="Pic" syncable="YES" codeGenerationType="class">
-        <attribute name="images" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="images" optional="YES" attributeType="String" storedInTruthFile="YES" syncable="YES"/>
     </entity>
     <entity name="Rbxx" representedClassName="Rbxx" syncable="YES" codeGenerationType="class">
         <attribute name="bgbh" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fjsc" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="isupload" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="jclx" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="jd" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="lrry" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lrsj" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sjtz" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ssbm" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="swsl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="wd" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="wzdm" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="zqsl" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="pics" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Pic" storedInTruthFile="YES" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="csny" optional="YES" attributeType="String" syncable="YES"/>
@@ -126,10 +140,11 @@
         <element name="Aspecies" positionX="-281" positionY="254" width="128" height="133"/>
         <element name="Disease" positionX="-306" positionY="-18" width="128" height="118"/>
         <element name="Expert" positionX="-144" positionY="135" width="128" height="208"/>
-        <element name="Kbxx" positionX="-144" positionY="-99" width="128" height="315"/>
+        <element name="Jwd" positionX="-153" positionY="-108" width="128" height="120"/>
+        <element name="Kbxx" positionX="-144" positionY="-99" width="128" height="360"/>
         <element name="Linkman" positionX="-153" positionY="126" width="128" height="105"/>
-        <element name="Pic" positionX="-126" positionY="-81" width="128" height="58"/>
-        <element name="Rbxx" positionX="-153" positionY="-108" width="128" height="210"/>
+        <element name="Pic" positionX="-126" positionY="-81" width="128" height="60"/>
+        <element name="Rbxx" positionX="-153" positionY="-108" width="128" height="270"/>
         <element name="User" positionX="-333" positionY="-261" width="128" height="298"/>
         <element name="Yydm" positionX="-135" positionY="-90" width="128" height="165"/>
     </elements>

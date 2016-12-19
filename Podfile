@@ -19,4 +19,8 @@ target 'yyyb' do #工程名字
     pod 'SwiftyJSON'
     
     pod 'Masonry'
+    
+    pod 'HandyJSON'
+    
+    pod 'AFNetworking'
 end

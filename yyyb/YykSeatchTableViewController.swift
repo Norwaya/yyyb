@@ -11,7 +11,8 @@ import CoreData
 class YykSeatchTableViewController: UITableViewController {
     var context:NSManagedObjectContext!
     var origin:Array<String> = Array()
-    var fileter:Array<String> = Array()
+    
+    var id:Array<String> = Array()
     @IBOutlet weak var searchBar: UISearchBar!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +55,9 @@ class YykSeatchTableViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         NSLog("%@", origin[indexPath.row])
-        
+        let vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "yyk5") as! Yyk5ViewController
+        vcInstance.currentId = id[indexPath.row]
+        self.navigationController?.pushViewController(vcInstance, animated: true)
         
     }
 
@@ -115,6 +118,7 @@ extension YykSeatchTableViewController: UISearchBarDelegate{
         let result = try? context.fetch(request) as! [Yydm] as Array
         for yydm in result!{
             origin.append(yydm.yymc!)
+            id.append(yydm.id!)
         }
         self.tableView.reloadData()
     }

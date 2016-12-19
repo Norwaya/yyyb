@@ -7,16 +7,16 @@
 //
 
 import UIKit
-
+import CoreData
 class MapViewController: UIViewController,MAMapViewDelegate, AMapLocationManagerDelegate {
 
     //MARK: - Properties
     
     let defaultLocationTimeout = 6
     let defaultReGeocodeTimeout = 3
-    
-    
-//    let pointAnnotation = MAPointAnnotation()
+    var context:NSManagedObjectContext!
+    var jwdEntity:NSEntityDescription!
+    //    let pointAnnotation = MAPointAnnotation()
     
     var mapView: MAMapView!
     var completionBlock: AMapLocatingCompletionBlock!
@@ -75,13 +75,37 @@ class MapViewController: UIViewController,MAMapViewDelegate, AMapLocationManager
 //        NSLog("moved by user")
     }
     func mapView(_ mapView: MAMapView!, didUpdate userLocation: MAUserLocation!, updatingLocation: Bool) {
-//        NSLog("\nuser info-----\nspeed: %f \n ", userLocation.location.speed,userLocation.location)
+        point.latitude = userLocation.location.coordinate.latitude
+        point.longitude = userLocation.location.coordinate.longitude
+        let result = gaodeTobaidu(jd: point.longitude, wd: point.latitude)
+//        NSLog("(%f %f) -> (%f %f)",point.longitude,point.latitude,result.jd,result.wd)
+        if saveEnable(){
+            let jwd = NSManagedObject.init(entity: jwdEntity!, insertInto: context) as! Jwd
+            jwd.jd  = String.init(format: "%f", result.jd)
+            jwd.wd = String.init(format: "%f", result.wd)
+            
+            
+            print("save -------")
+            
+            let format = DateFormatter.init()
+            format.dateFormat = "yyyyMMddHHmmss"
+            jwd.xjsj = format.string(from: Date())
+            try? context.save()
+        }
     }
-    //
+    
+    
+    //保存定位地点
     func amapLocationManager(_ manager: AMapLocationManager!, didUpdate location: CLLocation!, reGeocode: AMapLocationReGeocode?) {
         point.latitude = location.coordinate.latitude
         point.longitude = location.coordinate.longitude
-        point.detailAddress = reGeocode?.formattedAddress ?? ""
+        let result = gaodeTobaidu(jd: point.longitude, wd: point.latitude)
+        NSLog("(%f %f) -> (%f %f)",point.longitude,point.latitude,result.jd,result.wd)
+        
+        //  控制 频率 保存 经纬度
+        
+        
+        
         NSLog("\nlat: %f \nlon: %f \ndetail: %@ ", point.latitude,point.longitude,point.detailAddress)
         //        NSLog("location:{lat:\(location.coordinate.latitude); lon:\(location.coordinate.longitude); accuracy:\(location.horizontalAccuracy); reGeocode:\(reGeocode?.formattedAddress)};");
         
@@ -89,6 +113,22 @@ class MapViewController: UIViewController,MAMapViewDelegate, AMapLocationManager
 //        mapView.centerCoordinate = location.coordinate
 //        mapView.setZoomLevel(15.1, animated: true)
         
+    }
+    func saveEnable() -> Bool{
+        let format = DateFormatter.init()
+        format.dateFormat = "ss"
+        let date = format.string(from: Date())
+        return (Int.init(date)!/10 == 0)
+    }
+    func gaodeTobaidu(jd:Double,wd:Double) -> (jd:Double,wd:Double){
+        let x_pi = 3.14159265358979324 * 3000.0 / 180.0;
+        let x = jd
+        let y = wd
+        let z = sqrt(x * x + y * y) + 0.00002 * sin(y * x_pi);
+        let theta = atan2(y, x) + 0.000003 * cos(x * x_pi);
+        let bd_lon = z * cos(theta) + 0.0065;
+        let bd_lat = z * sin(theta) + 0.006;
+        return (bd_lon,bd_lat)
     }
     
     func initCompleteBlock() {
@@ -121,6 +161,16 @@ class MapViewController: UIViewController,MAMapViewDelegate, AMapLocationManager
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let app = UIApplication.shared.delegate as! AppDelegate
+        context = app.persistentContainer.viewContext
+        jwdEntity = try! NSEntityDescription.entity(forEntityName: "Jwd", in: context)
+        let result = try? context.fetch(NSFetchRequest<NSFetchRequestResult>.init(entityName: "Jwd")) as! [Jwd] as Array
+        for jwd in result! {
+            context.delete(jwd )
+        }
+        try? context.save()
+        
         view.backgroundColor = UIColor.white
         self.title = "巡查定位"
         initToolBar()
@@ -136,12 +186,18 @@ class MapViewController: UIViewController,MAMapViewDelegate, AMapLocationManager
     }
     func backAction(){
         navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "返回", style: UIBarButtonItemStyle.done, target: self, action: #selector(test(sender:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "上传", style: UIBarButtonItemStyle.done, target: self, action: #selector(upload(sender:)))
     }
     func test(sender: UIBarButtonItem){
         //处理 未上传的 报告
         NSLog("deal daily and express")
         self.navigationController?.popToRootViewController(animated: true)
 
+    }
+    func upload(sender: UIBarButtonItem){
+        let vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "upload")
+        vcInstance?.navigationController?.isToolbarHidden = true
+        self.navigationController?.pushViewController(vcInstance!, animated: true)
     }
     var toolbar: UIToolbar!
     override func viewWillAppear(_ animated: Bool) {

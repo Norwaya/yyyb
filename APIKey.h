@@ -13,7 +13,8 @@
 
 /* 使用高德地图API，请注册Key，注册地址：http://lbs.amap.com/dev/#/ */
 
-const static NSString *APIKey = @"50334655451d5cb22dfefe1901971dd9";
+//const static NSString *APIKey = @"50334655451d5cb22dfefe1901971dd9";
+  const static NSString *APIKey = @"094696160e0bf8650063ce31790bdf10";//李总的key
 const static NSString *TableID = @"";
 
 #endif

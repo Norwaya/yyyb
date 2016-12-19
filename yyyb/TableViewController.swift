@@ -95,14 +95,23 @@ class TableViewController: UITableViewController {
     }
     
     func initResource(){
+        
+        initSqlite()
+        
+        
+        
+    }
+    func initSqlite(){
+        
+        
         let ud = UserDefaults.standard
         let flag = ud.bool(forKey: "hasInitData")
         if flag {
             return
         }
-        print("flag is \(flag)")
+
         let app = UIApplication.shared.delegate as! AppDelegate
-//        app.domain
+        //        app.domain
         
         let managerObjectContext = app.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "Yydm", in: managerObjectContext)
@@ -111,45 +120,48 @@ class TableViewController: UITableViewController {
         
         do {
             let content = try? String.init(contentsOfFile: filePath!, encoding: String.Encoding.utf8)
-//            print(content)
+            //            print(content)
             var json :JSON = JSON.null
             if let dataFromString = content?.data(using: .utf8, allowLossyConversion: false) {
                 json = JSON(data: dataFromString)
             }
             print(json.array?.count)
             let array = json.array
+            
+        
             for index in 0 ..< 3577{
-//                DispatchQueue.global().async {
-                    print("index -> \(index)")
-                    let yydm = NSManagedObject(entity: entity!, insertInto: managerObjectContext) as! Yydm
-                    yydm.id = array?[index]["id"].description
-                    yydm.yymc = array?[index]["yymc"].description
-                    yydm.ldmc = array?[index]["ldmc"].description
-                    yydm.fb = array?[index]["fb"].description
-                    yydm.tmtz = array?[index]["tmtz"].description
-                    yydm.zp = array?[index]["zp"].description
-                    yydm.xx = array?[index]["xx"].description
-                    yydm.sj = array?[index]["sj"].description
-                    try? managerObjectContext.save()
-//                }
+                //                DispatchQueue.global().async {
+                print("index -> \(index)")
+                let yydm = NSManagedObject(entity: entity!, insertInto: managerObjectContext) as! Yydm
+                yydm.id = array?[index]["id"].description
+                yydm.yymc = array?[index]["yymc"].description
+                yydm.ldmc = array?[index]["ldmc"].description
+                yydm.fb = array?[index]["fb"].description
+                yydm.tmtz = array?[index]["tmtz"].description
+                yydm.zp = array?[index]["zp"].description
+                yydm.xx = array?[index]["xx"].description
+                yydm.sj = array?[index]["sj"].description
+                
+                managerObjectContext.insert(yydm)
                 
             }
+            
+            try? managerObjectContext.save()
             var result = try? managerObjectContext.fetch(NSFetchRequest<NSFetchRequestResult>.init(entityName: "Yydm")) as! [Yydm] as Array
             print("yydm count is \(result?.count)")
-//            for a in result!{
-//                    managerObjectContext.delete(a)
-//            }
-//            try? managerObjectContext.save()
+            //            for a in result!{
+            //                    managerObjectContext.delete(a)
+            //            }
+            //            try? managerObjectContext.save()
             ud.set(true, forKey: "hasInitData")
             ud.synchronize()
         } catch  let err as NSError{
-                print("error when save data \(err.description)")
+            print("error when save data \(err.description)")
         }
-        
-        
-        
-        
+
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

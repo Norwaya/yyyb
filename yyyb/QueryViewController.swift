@@ -8,18 +8,19 @@
 
 import UIKit
 import Alamofire
+import CoreData
+import SwiftyJSON
 
 class QueryViewController: UIViewController {
-    var array = [String]()
+    var array:Array<jlcx> = []
     
-    
+    var context:NSManagedObjectContext!
     @IBOutlet weak var btn_from: UIButton!
    
     @IBOutlet weak var btn_to: UIButton!
     @IBOutlet weak var tableView: UITableView!
-//    required init?(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//    }
+    
+    
     
     
     
@@ -31,7 +32,8 @@ class QueryViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let app = UIApplication.shared.delegate as! AppDelegate
+        context = app.persistentContainer.viewContext
         // Do any additional setup after loading the view.
     }
 
@@ -80,14 +82,55 @@ class QueryViewController: UIViewController {
         }
     }
     func requestRecored(){
-        Alamofire.request("").responseJSON(completionHandler: {respond in
-            print("request data \n  finished    \n refresh view")
-            self.array = ["","",""]
-            self.tableView.reloadData()
-        })
+        let info = getUserInfo()
+        
+        let format2 = DateFormatter.init()
+        format2.dateFormat = "yyyyMMdd"
+        
+        let parameters:Parameters =
+            [
+                "m":"getNewSbjl",
+                "unitId":info.unitid,
+                "startTime":format2.string(from: self.from ?? Date()),
+                "endTime":format2.string(from: self.to ?? Date()),
+                "pageNo":"0"
+            ]
+        
+        
+        
+        Alamofire.request("http://192.168.20.50:8090/sbjl.do",parameters:parameters)
+            .responseJSON{
+            response in
+                self.array.removeAll()
+            let result = JSON.init(response.result.value)
+                print(result)
+                let code = result["code"]
+                switch code{
+                case 0:
+                    let dataArray = result["pagedList"]["list"]
+                    for index in 0..<dataArray.count{
+//                        print(dataArray)
+//                        let entity = dataArray[index] as JSON
+                        var jl = jlcx.init(time: dataArray[index]["jcsj"].string!, sl: dataArray[index]["wzsl"].string!, xjgj: dataArray[index]["xjgj"].boolValue)
+                        self.array.append(jl)
+                    }
+                    print(dataArray.count)
+                default:
+                    NSLog("no data")
+                }
+                self.tableView.reloadData()
+        }
     }
     
-    
+    func getUserInfo() -> (name:String,unitid:String){
+        let ud = UserDefaults.standard
+        let yhm = ud.string(forKey: "currentUserId")
+        if  (yhm == nil) {
+            return ("","")
+        }
+        let result = try? context.fetch(NSFetchRequest<NSFetchRequestResult>.init(entityName: "User")) as! [User] as Array
+        return (yhm!,(result?[0].ssbm)!)
+    }
     
     
     
@@ -104,6 +147,9 @@ class QueryViewController: UIViewController {
             let date = datePicker.date
             let format = DateFormatter.init()
             format.dateFormat = "yyyy-MM-dd"
+            
+            
+            
             let strDate = format.string(from: date) as String
             switch time{
             case "from":
@@ -171,18 +217,35 @@ extension QueryViewController: UITableViewDataSource{
             btn.id = indexPath.row
             btn.addTarget(self, action: #selector(btnTarget(sender:)), for: UIControlEvents.touchUpInside)
             
-            date.text = "2016/01/01"
-            recordNum.text = "\(indexPath.row)"
+            date.text = self.array[indexPath.row].time
+            recordNum.text = self.array[indexPath.row].sl
         }
         
         return cell!
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(indexPath.row)")
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "show") as! ShowRecoredViewController
+        vc.time = self.array[indexPath.row].time
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     func btnTarget(sender: CustomButton){
 //        let id = sender.id
         //根据ID 获取 array 中的轨迹堆栈信息
         // send the id to traceViewController and load
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "trace")
-        self.navigationController?.pushViewController(vc!, animated: true)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "trace") as! TraceViewController
+        vc.gj = array[sender.id].time
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
+struct jlcx{
+    var time:String!
+    var sl:String!
+    var xjgj:Bool!
+    init(time:String,sl:String,xjgj:Bool) {
+        self.time = time
+        self.sl = sl
+        self.xjgj = xjgj
+    }
+}

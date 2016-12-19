@@ -18,10 +18,10 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var rememberPassword: UISegmentedControl!
     
     var currentUserId: String! = nil
-    
+    var currentUserIdId:String! = nil
     override func viewDidLoad() {
         super.viewDidLoad()
-        username.text = "M6190010010M01"
+        username.text = "G6190010010M01"
         password.text = "123456"
         navigationController?.isNavigationBarHidden = true
         // Do any additional setup after loading the view.
@@ -44,20 +44,16 @@ class LoginViewController: UIViewController {
             ]
         
         Alamofire.request("http://192.168.20.50:8090/login.do",method: .get,parameters: parameters)
-            .responseData{
-                responds in
-                switch responds.result{
-                case .failure:
-                    print("fail")
-                case .success:
-                    print("success")
-                }
-            }
+            
             .responseJSON{
                 response in
-            print(response.result.value)
-            let json = JSON.init(response.result.value ?? "{\"code\" =  -1}")
+                if ((response.result.value) == nil){
+                    NSLog("response has no value")
+                    return
+                }
+            let json = JSON.init(response.result.value )
             let code = (json["code"].int)!
+            print(response.result.value)
             switch  code{
             case 0:
                 //save user and update login time
@@ -67,14 +63,8 @@ class LoginViewController: UIViewController {
                    
                     let ud = UserDefaults.standard
                     ud.set(self.currentUserId, forKey: "currentUserId")
-                    
-                    
+                    ud.set(self.currentUserIdId,forKey:"currentUserIdId")
                     ud.synchronize()
-                    
-
-                    
-                        
-                    
                     self.navigationController?.popToRootViewController(animated: true) //return to root controller
                     
                 }
@@ -127,6 +117,7 @@ class LoginViewController: UIViewController {
         if (result?.count)! > 0{
             user = result?[0]
             user.yhm = userInDic["yhm"].description
+            user.xm = userInDic["xm"].description
             user.csny = userInDic["csny"].description
             user.czzt = userInDic["czzt"].description
             user.id = userInDic["id"].description
@@ -140,6 +131,7 @@ class LoginViewController: UIViewController {
             user.zc = userInDic["zc"].description
             user.zfzb = userInDic["zfzb"].description
             user.zjz = userInDic["zjz"].description
+            user.leastlogintime = currentStringDate()
         }else {
             let entity = NSEntityDescription.entity(forEntityName: "User", in: context)
             //Get the ManagedObject
@@ -150,7 +142,7 @@ class LoginViewController: UIViewController {
             user.czzt = userInDic["czzt"].description
             user.id = userInDic["id"].description
             
-            
+            user.xm = userInDic["xm"].description
             user.leastlogintime = currentStringDate()
             user.llry = userInDic["llry"].description
             user.llsj = userInDic["llsj"].description
@@ -167,7 +159,7 @@ class LoginViewController: UIViewController {
         
         //current user id
         self.currentUserId = userInDic["yhm"].description
-        
+        self.currentUserIdId = userInDic["id"].description
             try context.save()
         } catch let err as NSError {
             NSLog("error: %@", err.description)

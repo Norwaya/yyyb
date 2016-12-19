@@ -36,7 +36,7 @@ class DailyViewController: UIViewController,PassDictionary{
             if (animal.animalSpecial == "选择"){
                 showAlertController(title: "提示", msg: "请选择生境特征", ok: "确定")
                 return
-            }else if(animal.animalNum != nil && animal.animalNum != "" && animal.animalNum != "0"){
+            }else if((animal.animalNum == nil) || (animal.animalNum! == "") || (animal.animalNum! == "0")){
                 showAlertController(title: "提示", msg: "动物数量不能为空", ok: "确定")
                 return
             }
@@ -63,45 +63,91 @@ class DailyViewController: UIViewController,PassDictionary{
     
     //save dic to datebase
     func saveData(){
+//        picNum()
+        
         do {
-            var images:Array<UIImage> = Array()
+//            var images:Array<UIImage> = Array()
             
             let app = UIApplication.shared.delegate as! AppDelegate
             let managerObjectContext = app.persistentContainer.viewContext
             let entity = NSEntityDescription.entity(forEntityName: "Rbxx", in: managerObjectContext)
+            let picEntity = NSEntityDescription.entity(forEntityName: "Pic", in: managerObjectContext)
             for animal in targetDic.values{
 
                 //Get the ManagedObject
                 
+                
+                
+                
                 let rbxx = NSManagedObject(entity: entity!, insertInto: managerObjectContext) as! Rbxx
                 let infoFromUser = getFromUser()
                 rbxx.ssbm = infoFromUser.ssbm
-                rbxx.lrsj = infoFromUser.xm
+                rbxx.lrry = infoFromUser.lrry
                 rbxx.jd = Double(animal.lon)!
                 rbxx.wd = Double(animal.lat)!
                 rbxx.zqsl = animal.animalNum
                 // time
                 let format = DateFormatter.init()
-                format.dateFormat = "yyyy-MM-dd"
-                let timeZone = NSTimeZone.system
-                let interval = timeZone.secondsFromGMT()
-                let currentDate = Date().addingTimeInterval(TimeInterval(interval))
+                format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//                let timeZone = NSTimeZone.system
+//                let interval = timeZone.secondsFromGMT()
+                let currentDate = Date()
+                print(currentDate)
                 rbxx.lrsj = format.string(from: currentDate)
+                rbxx.name = animal.animal
+                rbxx.sjtz = animal.animalSpecial
                 rbxx.wzdm = getWzdm(name: animal.animal!)
-                
+                rbxx.isupload = false
+                try managerObjectContext.save()
+//                NSData *data = UIImageJPEGRepresentation(image, 1.0f);
+//                NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+//                return encodedImageStr;
+                print("when save pics the num")
+                print(animal.images.count)
                 for image in animal.images{
-                    images.append(image)
+                    let pic = NSManagedObject.init(entity:picEntity! , insertInto: managerObjectContext) as! Pic
+                    let data = UIImageJPEGRepresentation(image, 1.0) as NSData?
+                    let strImage = data?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters)
+//                    print("str image -> \(strImage)")
+                    pic.images = strImage
+                    
+                    try managerObjectContext.save()
+                    rbxx.pics?.adding(pic)
                 }
                 
-                try managerObjectContext.save()
+                
             }
-            print("save uiimage")
-            saveImages(arr: images)
+            picNum()
         } catch  {
             
         }
+        let controllers = navigationController?.viewControllers
+        self.navigationController?.popToViewController((controllers?[(controllers?.count)!-3])!, animated: true)
        
     }
+    
+    func picNum(){
+        let app = UIApplication.shared.delegate as! AppDelegate
+        let context = app.persistentContainer.viewContext
+        let array = try! context.fetch(NSFetchRequest<NSFetchRequestResult>.init(entityName: "Rbxx")) as! [Rbxx] as Array
+        for rbxx in array{
+            print("test count of rbxx")
+            let set = rbxx.pics
+            print("set is \(set)")
+            let enu:NSEnumerator = set!.objectEnumerator()
+            print("start to set")
+            while let obj = enu.nextObject() {
+                print("pic -> \(obj)" )
+            }
+            print("end to set")
+        }
+        
+    }
+    
+    
+    
+    
+    
     func getWzdm(name: String) -> String {
         let app = UIApplication.shared.delegate as! AppDelegate
         let managerObjectContext = app.persistentContainer.viewContext
@@ -111,21 +157,25 @@ class DailyViewController: UIViewController,PassDictionary{
         do {
             let result = try managerObjectContext.fetch(request) as! [Yydm] as Array
             
-            return result[0].yymc!
+            return result[0].id!
         } catch  {
             
         }
         return "未知物种"
     }
-    func getFromUser() -> (xm:String,ssbm:String){
+    func getFromUser() -> (lrry:String,ssbm:String){
         let app = UIApplication.shared.delegate as! AppDelegate
         let managerObjectContext = app.persistentContainer.viewContext
         
         let request = NSFetchRequest<NSFetchRequestResult>.init(entityName: "User")
         request.predicate = NSPredicate.init(format: "yhm CONTAINS %@", UserDefaults.standard.string(forKey: "currentUserId")!)
         let result = try? managerObjectContext.fetch(request) as! [User] as Array
+        if(result?.count == 0){
+            return ("nil","nil")
+        }
         let user = result?[0]
-        return (user!.xm ?? "",user!.ssbm!)
+        print("xm: \(user?.xm) ssbm: \(user?.ssbm)")
+        return (user!.llry ?? "",user!.ssbm!)
     }
     func saveImages(arr: Array<UIImage>){
         if !(arr.count > 0){
@@ -267,7 +317,7 @@ extension DailyViewController: UITableViewDelegate,UITableViewDataSource,UITextF
         label02.setTitle("\((daily.imageNum)!)", for: UIControlState.normal)
         label03.text = "lat: \((daily.lat)!)  lon: \((daily.lon)!)"
         print("\(indexPath.row) ->  \(targetDic[indexPath.row]?.animalSpecial)")
-        label04.setTitle(daily.animalSpecial , for: UIControlState.normal)
+        label04.setTitle(daily.itemName , for: UIControlState.normal)
         label05.text = daily.animalNum
 //        label01.re
         
@@ -300,7 +350,8 @@ extension DailyViewController: UITableViewDelegate,UITableViewDataSource,UITextF
             let id = (btnSpecial?.id)!
             var daily = targetDic[id]
             daily?.animalSpecial = dic["item"] as? String
-            btnSpecial?.setTitle(daily?.animalSpecial!, for: UIControlState.normal)
+            daily?.itemName = dic["itemname"] as? String
+            btnSpecial?.setTitle(daily?.itemName!, for: UIControlState.normal)
             targetDic.updateValue(daily!, forKey: id)
             print("save->\(id) -> \(targetDic[id]?.animalSpecial)")
             
@@ -394,6 +445,7 @@ struct Daily{
     var lon: String!
     var address: String?
     var animalSpecial: String?
+    var itemName:String?
     var animalNum: String?
     init(animal: String,lat: String, lon: String,address: String) {
         self.lat = lat

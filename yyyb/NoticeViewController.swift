@@ -9,13 +9,10 @@
 import UIKit
 import Alamofire
 import DGElasticPullToRefresh
-
+import CoreData
 class NoticeViewController: UIViewController {
-    // MARK: -
-    // MARK: Vars
-    
-//    fileprivate var tableView: UITableView!
-    
+    var context:NSManagedObjectContext!
+    var array:Array<Emunication> = []
     @IBOutlet weak var tableView: UITableView!
     // MARK: -
     override func viewWillAppear(_ animated: Bool) {
@@ -26,48 +23,25 @@ class NoticeViewController: UIViewController {
     }
     override func loadView() {
         super.loadView()
+        let app = UIApplication.shared.delegate as! AppDelegate
+        context = app.persistentContainer.viewContext
         
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.barTintColor = UIColor(red: 57/255.0, green: 67/255.0, blue: 89/255.0, alpha: 1.0)
         
-//        tableView = UITableView(frame: view.bounds, style: .plain)
+
         tableView.dataSource = self
         tableView.delegate = self
-//        tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        tableView.separatorColor = UIColor(red: 230/255.0, green: 230/255.0, blue: 231/255.0, alpha: 1.0)
-//        tableView.backgroundColor = UIColor(red: 250/255.0, green: 250/255.0, blue: 251/255.0, alpha: 1.0)
-//        view.addSubview(tableView)
+
         
         let loadingView = DGElasticPullToRefreshLoadingViewCircle()
         loadingView.tintColor = UIColor(red: 78/255.0, green: 221/255.0, blue: 200/255.0, alpha: 1.0)
         tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
-//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
-//                    print("sleep start")
-//                    Thread.sleep(forTimeInterval: 10)
-//                    print("sleep over")
-//                    self?.tableView.dg_stopLoading()
-//                })
+
             DispatchQueue.main.async {
-//                Alamofire.request("https://httpbin.org/get").responseJSON { response in
-//                    print(response.request)  // original URL request
-//                    print(response.response) // HTTP URL response
-//                    print(response.data)     // server data
-//                    print(response.result)   // result of response serialization
-//                    
-//                    if let JSON = response.result.value {
-//                        print("JSON: \(JSON)")
-//                    }
-//                }
-                Alamofire.request("https://httpbin.org/get")
-                    .responseString { response in
-                        print("Response String: \(response.result.value)")
-                    }
-                    .responseJSON { response in
-                        print("Response JSON: \(response.result.value)")
-                }
-                self?.tableView.dg_stopLoading()
+              self?.requestData()
             }
             }, loadingView: loadingView)
         tableView.dg_setPullToRefreshFillColor(UIColor(red: 57/255.0, green: 67/255.0, blue: 89/255.0, alpha: 1.0))
@@ -77,6 +51,36 @@ class NoticeViewController: UIViewController {
     deinit {
         tableView.dg_removePullToRefresh()
     }
+    
+    func requestData(){
+        let info = getUserInfo()
+        let parameters : Parameters =
+            [
+                "m":"update",
+                "unitId":info.unitid,
+                "updateTime":"20161219"
+            ]
+        
+        
+        
+        
+        Alamofire.request("https://192.168.20.50:8090/yjtx.do",parameters:parameters)
+            .responseJSON { response in
+                print("Response JSON: \(response.result.value)")
+        }
+        self.tableView.dg_stopLoading()
+    }
+    
+    func getUserInfo() -> (name:String,unitid:String){
+        let ud = UserDefaults.standard
+        let yhm = ud.string(forKey: "currentUserId")
+        if  (yhm == nil) {
+            return ("","")
+        }
+        let result = try? context.fetch(NSFetchRequest<NSFetchRequestResult>.init(entityName: "User")) as! [User] as Array
+        return (yhm!,(result?[0].ssbm)!)
+    }
+
     
 }
 
@@ -126,4 +130,8 @@ extension NoticeViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+}
+struct Emunication{
+    var name:String?
+    var photo:String?
 }

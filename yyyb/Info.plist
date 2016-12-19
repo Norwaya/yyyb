@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>请求访问系统相册</string>
-	<key>NSCameraUsageDescription</key>
-	<string>请求相机使用权限</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -35,8 +31,12 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>请求相机使用权限</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>need norwaya</string>
+	<string>请允许使用定位</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>请求访问系统相册</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

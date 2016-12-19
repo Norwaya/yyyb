@@ -29,6 +29,12 @@ class AddViewController: UIViewController, UISearchBarDelegate{
     
     
     @IBAction func singleBtnAction(_ sender: UIButton) {
+        // 消除搜索记录
+        self.searchBar.text = nil
+        self.filtered = []
+        
+        
+        
         let tag = sender.tag
         sender.isSelected = true
         for  index in 1..<6{
@@ -41,22 +47,24 @@ class AddViewController: UIViewController, UISearchBarDelegate{
         switch tag{
         case 101:
             original = ["常用1","常用2","常用3","常用4","常用5"]
-            updateView()
+            
         case 102:
             original = queryById(id: "AV")
-            updateView()
+            
         case 103:
             original = queryById(id: "MA")
-            updateView()
+            
         case 104:
-            original = queryById(id: "AV")
-            updateView()
+            original = queryById(id: "RP")
+            
         case 105:
-            original = queryById(id: "AV")
-            updateView()
+            original = queryById(id: "AM")
+            
         default:
             print("")
         }
+        searching = false
+        updateView()
     }
     
     @IBAction func btnGoto(_ sender: UIButton) {
@@ -86,11 +94,7 @@ class AddViewController: UIViewController, UISearchBarDelegate{
     override func viewWillAppear(_ animated: Bool) {
         print("view will appear")
         super.viewWillAppear(animated)
-        self.navigationController?.setToolbarHidden(true, animated: false)
-        initSource()
-        initButtons()
-        updateView()
-    }
+            }
     override func viewDidAppear(_ animated: Bool) {
         let app = UIApplication.shared.delegate as! AppDelegate
         context = app.persistentContainer.viewContext
@@ -101,7 +105,11 @@ class AddViewController: UIViewController, UISearchBarDelegate{
     override func viewDidLoad() {
 //        print("view did load")
         super.viewDidLoad()
-        
+        self.navigationController?.setToolbarHidden(true, animated: false)
+        initSource()
+        initButtons()
+        updateView()
+
         // Do any additional setup after loading the view.
     }
     
@@ -192,6 +200,8 @@ class AddViewController: UIViewController, UISearchBarDelegate{
     {
         print("search bar text did begin editing")
         searching = true
+        
+    
         
         updateView()
     }

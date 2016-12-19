@@ -4,12 +4,22 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>DGElasticPullToRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>HandyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -82,11 +92,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3EC673075F7CE8E7AD7EEEC807ACE9B4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>44E6459228E2520E381EC2ECD4845A95</key>
 		<dict>
 			<key>primary</key>
@@ -102,6 +107,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>5429C9193D088CB94CA32DA1DFB12763</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
 		<dict>
 			<key>primary</key>
@@ -112,17 +122,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C1190E9BFA9ADD8984A42A954DD827B7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>CE6F1DE9612B5EF3B111F39E609A50CF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>CF671F7E57B92905F1CC91D036D6B4A7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>D52144DE9D7255DE912490FF5A806573</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F49F4E637BD12451875145E3437825BA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FEED5ABB6E5AE2A0BAE755361F37FA13</key>
 		<dict>
 			<key>primary</key>
 			<true/>

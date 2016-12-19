@@ -10,8 +10,8 @@ import UIKit
 
 class AnimalSpeciesTableViewController: UITableViewController {
     var delegate: PassDictionary?
-    var array = ["special01","special02","special03","special04","special05",
-                 "special06","special07","special08","special09","special10"]
+    var array = ["高山冻原","滩涂","珊瑚礁","草原","荒漠",
+                 "沼泽","森林","草甸","湖泊","浅海湿地","旱地","河流","河口","人工湿地","水田"]
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,14 +42,14 @@ class AnimalSpeciesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "special")
-
+        
         // Configure the cell...
         cell?.textLabel?.text = array[indexPath.row]
         return cell!
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dic = ["item":array[indexPath.row]]
+        let dic = ["item":"\(indexPath.row+1)","itemname":"\(array[indexPath.row])"]
         delegate?.passDictionary(dic: dic)
         self.navigationController?.popViewController(animated: true)
     }

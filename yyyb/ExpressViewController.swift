@@ -8,7 +8,7 @@
 
 import UIKit
 import MMNumberKeyboard
-
+import CoreData
 import ImagePicker
 import Lightbox
 class ExpressViewController: UIViewController{
@@ -18,7 +18,15 @@ class ExpressViewController: UIViewController{
     
     var array:Array<String>?
     var targetDic: Dictionary = [Int:Express]()
+    var baseInfo:BaseInfo?
+    
     var btnSpecial: CustomButton?
+    
+    var context:NSManagedObjectContext!
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -28,6 +36,11 @@ class ExpressViewController: UIViewController{
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //init context
+        let app = UIApplication.shared.delegate as! AppDelegate
+        context = app.persistentContainer.viewContext
+        
         self.automaticallyAdjustsScrollViewInsets = false
         for index in array!{
             print(index)
@@ -71,7 +84,111 @@ class ExpressViewController: UIViewController{
 //    override func loadView() {
 //        self.view = UIScrollView.init(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: UIScreen.main.bounds.size))
 //    }
+    
+    
+    
+    
+    
+    
+    //下一页
+    @IBAction func saveAction(_ sender: UIButton) {
+        //验证 信息
+        for animal in targetDic.values{
+            
+//                showAlertController(title: "提示", msg: "请选择生境特征", ok: "确定")
+//            return
+        }
+        
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "saveexpress") as! SaveExpressViewController
+        vc.baseInfo = self.baseInfo
+        vc.delegate = self
+        vc.targetDic = self.targetDic
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
+    
+    
+    
+    
+    //create alert view
+    func showAlertController(title: String,msg: String,ok: String){
+        let alertController = UIAlertController(title:title, message:msg  , preferredStyle: UIAlertControllerStyle.alert)
+        
+        
+        //        let cancelAction = UIAlertAction(title:cancel, style: UIAlertActionStyle.cancel, handler: nil)
+        
+        let okAction = UIAlertAction(title:ok, style: UIAlertActionStyle.default, handler: nil)
+        
+        //        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated:true, completion: nil)
+    }
+    func saveData(){
+        do {
+            let entity = NSEntityDescription.entity(forEntityName: "Kbxx", in: context)
+            let picEntity = NSEntityDescription.entity(forEntityName: "Pic", in: context)
+            for animal in targetDic.values{
+                let kbxx = NSManagedObject(entity: entity!, insertInto: context) as! Kbxx
+                let infoFromUser = getFromUser()
+//                kbxx.fxdd
+                
+                
+                
+                
+                // time
+                let format = DateFormatter.init()
+                format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                //                let timeZone = NSTimeZone.system
+                //                let interval = timeZone.secondsFromGMT()
+                let currentDate = Date()
+                print(currentDate)
+//                kbxx.lrsj = format.string(from: currentDate)
+//                kbxx.name = animal.animal
+//                kbxx.sjtz = animal.animalSpecial
+//                kbxx.wzdm = getWzdm(name: animal.animal!)
+//                kbxx.isupload = false
+//                try managerObjectContext.save()
+//                //                NSData *data = UIImageJPEGRepresentation(image, 1.0f);
+//                //                NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+//                //                return encodedImageStr;
+//                print("when save pics the num")
+//                print(animal.images.count)
+//                for image in animal.images{
+//                    let pic = NSManagedObject.init(entity:picEntity! , insertInto: managerObjectContext) as! Pic
+//                    let data = UIImageJPEGRepresentation(image, 1.0) as NSData?
+//                    let strImage = data?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters)
+//                    //                    print("str image -> \(strImage)")
+//                    pic.images = strImage
+//                    
+//                    try managerObjectContext.save()
+//                    kbxx.pics?.adding(pic)
+//                }
+                
+                
+            }
+           
+        } catch  {
+            
+        }
+//        let controllers = navigationController?.viewControllers
+//        self.navigationController?.popToViewController((controllers?[(controllers?.count)!-3])!, animated: true)
+        
+    }
+    func getFromUser() -> (xm:String,ssbm:String){
+        let request = NSFetchRequest<NSFetchRequestResult>.init(entityName: "User")
+        request.predicate = NSPredicate.init(format: "yhm CONTAINS %@", UserDefaults.standard.string(forKey: "currentUserId")!)
+        let result = try? context.fetch(request) as! [User] as Array
+        if(result?.count == 0){
+            return ("nil","nil")
+        }
+        let user = result?[0]
+        print("xm: \(user?.xm) ssbm: \(user?.ssbm)")
+        return (user!.xm ?? "",user!.ssbm!)
+    }
 
+    
 }
 extension ExpressViewController: UITableViewDelegate,UITableViewDataSource,PassDictionary{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -179,12 +296,10 @@ extension ExpressViewController: UITableViewDelegate,UITableViewDataSource,PassD
     }
     func passDictionary(dic: Dictionary<String, Any>) {
         if dic.keys.contains("item"){
-            
-            
             let id = (btnSpecial?.id)!
             var express = targetDic[id]
             express?.animalSpecial = dic["item"] as? String
-            btnSpecial?.setTitle(express?.animalSpecial!, for: UIControlState.normal)
+            btnSpecial?.setTitle(dic["itemname"] as! String, for: UIControlState.normal)
             targetDic.updateValue(express!, forKey: id)
             print("save->\(id) -> \(targetDic[id]?.animalSpecial)")
             
@@ -267,7 +382,11 @@ extension ExpressViewController: MMNumberKeyboardDelegate{
     }
 
 }
-
+extension ExpressViewController:intentBaseInfoAble{
+    func intentBaseInfo(baseInfo: BaseInfo) {
+        self.baseInfo = baseInfo
+    }
+}
 struct Express{
     var animal: String?
     var images: Array<UIImage>?
@@ -292,6 +411,10 @@ struct Express{
     var exceptionNum: String?
     var deathNum: String?
     var groupSpecial: String?
+    
+    
+    
+    
     init(animal: String,lat: String, lon: String,address: String) {
         self.lat = lat
         self.animal = animal
@@ -300,4 +423,8 @@ struct Express{
         images = Array()
     }
     
+}
+
+protocol intentBaseInfoAble {
+    func intentBaseInfo(baseInfo:BaseInfo)
 }
