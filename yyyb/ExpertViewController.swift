@@ -13,14 +13,12 @@
 import UIKit
 import Alamofire
 import DGElasticPullToRefresh
-
-
+import CoreData
+import SwiftyJSON
 
 class ExpertViewController: UIViewController {
-    // MARK: -
-    // MARK: Vars
-    
-    //    fileprivate var tableView: UITableView!
+    var context:NSManagedObjectContext!
+    var array:Array<structExpert> = []
     
     @IBOutlet weak var tableView: UITableView!
     // MARK: -
@@ -33,57 +31,79 @@ class ExpertViewController: UIViewController {
     override func loadView() {
         super.loadView()
         
+        let app = UIApplication.shared.delegate as! AppDelegate
+        context = app.persistentContainer.viewContext
+        
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.barTintColor = UIColor(red: 57/255.0, green: 67/255.0, blue: 89/255.0, alpha: 1.0)
         
-        //        tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.dataSource = self
         tableView.delegate = self
-        //        tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        //        tableView.separatorColor = UIColor(red: 230/255.0, green: 230/255.0, blue: 231/255.0, alpha: 1.0)
-        //        tableView.backgroundColor = UIColor(red: 250/255.0, green: 250/255.0, blue: 251/255.0, alpha: 1.0)
-        //        view.addSubview(tableView)
         
         let loadingView = DGElasticPullToRefreshLoadingViewCircle()
         loadingView.tintColor = UIColor(red: 78/255.0, green: 221/255.0, blue: 200/255.0, alpha: 1.0)
         tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
-            //                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
-            //                    print("sleep start")
-            //                    Thread.sleep(forTimeInterval: 10)
-            //                    print("sleep over")
-            //                    self?.tableView.dg_stopLoading()
-            //                })
-            DispatchQueue.main.async {
-                //                Alamofire.request("https://httpbin.org/get").responseJSON { response in
-                //                    print(response.request)  // original URL request
-                //                    print(response.response) // HTTP URL response
-                //                    print(response.data)     // server data
-                //                    print(response.result)   // result of response serialization
-                //
-                //                    if let JSON = response.result.value {
-                //                        print("JSON: \(JSON)")
-                //                    }
-                //                }
-                Alamofire.request("https://httpbin.org/get")
-                    .responseString { response in
-                        print("Response String: \(response.result.value)")
-                    }
-                    .responseJSON { response in
-                        print("Response JSON: \(response.result.value)")
-                }
-                self?.tableView.dg_stopLoading()
-            }
+            
+            self?.requestData()
+            
+            
             }, loadingView: loadingView)
         tableView.dg_setPullToRefreshFillColor(UIColor(red: 57/255.0, green: 67/255.0, blue: 89/255.0, alpha: 1.0))
         tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
     }
+    func requestData(){
+    let info = getUserInfo()
+    let parameters : Parameters =
+        [
+            "m":"update",
+            "unitId":info.unitid,
+            "updateTime":"20161219"
+        ]
     
+    
+    
+    
+    Alamofire.request("http://192.168.20.50:8090/zjk.do",parameters:parameters)
+        .response { response in
+            print("Request: \(response.request)")
+            print("Response: \(response.response)")
+            print("Error: \(response.error)")
+            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                print("Data: \(utf8Text)")
+            }
+        }
+        .responseJSON { response in
+            let json = JSON(response.result.value)
+            
+            print("message: \(json["message"].string?.utf8.description)")
+            
+            DispatchQueue.main.async(execute: {
+                
+                self.tableView.reloadData()
+            })
+    }
+    self.tableView.dg_stopLoading()
+}
+
+    func getUserInfo() -> (userId:String,unitid:String){
+        let ud = UserDefaults.standard
+        let id = ud.string(forKey: "currentUserIdId")
+        if  (id == nil) {
+            return ("","")
+        }
+        print("--------\(id)")
+        let request = NSFetchRequest<NSFetchRequestResult>.init(entityName: "User")
+        request.predicate = NSPredicate.init(format: "id CONTAINS  %@ ", id!)
+        let result = try? context.fetch(request) as! [User] as Array
+        return (id!,(result?[0].ssbm)!)
+    }
+
     deinit {
         tableView.dg_removePullToRefresh()
     }
-    
+
 }
 
 // MARK: -
@@ -95,7 +115,7 @@ extension ExpertViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return array.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -131,5 +151,8 @@ extension ExpertViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+}
+struct structExpert{
     
 }

@@ -19,6 +19,11 @@ class ShowRbxxViewController: UIViewController {
     var pageIndex:Int = 0
     var hasMore:Bool = true
     
+    var httpRequest:Request?
+    let url = "http://192.168.20.50:8090/sbjl.do"
+//    let url = "http://192.168.0.173:8084/sbjl.do"
+    
+    
     var array:Array<RbxxResult> = []
     var context:NSManagedObjectContext!
 //    override func loadView() {
@@ -67,6 +72,16 @@ class ShowRbxxViewController: UIViewController {
         print("rbxx view will appear")
         requestHttp()
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        if(httpRequest != nil){
+            
+            httpRequest?.cancel()
+          
+        }
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        print("rbxx ---  did disappear")
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -74,6 +89,9 @@ class ShowRbxxViewController: UIViewController {
     
 
     func requestHttp(){
+        if(httpRequest != nil){
+            httpRequest?.cancel()
+        }
         if(pageIndex%10 != 0){
             self.tableView.dg_stopLoading()
             return
@@ -89,22 +107,25 @@ class ShowRbxxViewController: UIViewController {
             [
                 "m":"clickJcjlZc",
                 "pageNo":pageIndex/10,
-                "rq": getDate(),
+                "rq": time,
                 "unitId": info.unitid
         ]
+
         
-//        print(parameters)
-        
-        Alamofire.request("http://192.168.20.50:8090/sbjl.do",parameters: parameters)
+        httpRequest = Alamofire.request(url,parameters: parameters)
         .responseJSON{ response in
             let json = JSON.init(response.result.value)
+            print(json)
             if (json["code"] == 0){
                 print(json)
                 self.addArray(json: json["pagedList"]["list"].array)
             }
             self.tableView.dg_stopLoading()
         }
-
+        print(httpRequest?.request?.description)
+        
+        
+        
     }
     func addArray(json:[JSON]?){
         print(json)
@@ -177,7 +198,6 @@ struct RbxxResult{
     var wzdm:String?
     init(id:String,lrsj:String,wzdm:String){
         self.id = id
-        
         self.lrsj = lrsj
         self.wzdm = wzdm
     }

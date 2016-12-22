@@ -17,23 +17,38 @@
 import UIKit
 import Alamofire
 import DGElasticPullToRefresh
+import CoreData
 
 class CommunicationViewController: UIViewController {
-    // MARK: -
-    // MARK: Vars
-    
-    //    fileprivate var tableView: UITableView!
+    var context:NSManagedObjectContext!
+    var array:Array<Comm> = []
     
     @IBOutlet weak var tableView: UITableView!
     // MARK: -
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
+        
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        if httpRequest != nil{
+            httpRequest?.cancel()
+        }
     }
+    
+    func addLink(sender:UITabBarItem){
+        
+    }
+    
     override func loadView() {
         super.loadView()
+//        navigationController?.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIBarButtonSystemItem.add, style: UIBarButtonItemStyle.done, target: self, action: #selector(addLink(sender:)))
+        
+        let app = UIApplication.shared.delegate as! AppDelegate
+        context = app.persistentContainer.viewContext
         
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -48,19 +63,60 @@ class CommunicationViewController: UIViewController {
         tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
                 DispatchQueue.main.async {
                
-                Alamofire.request("https://httpbin.org/get")
-                    .responseString { response in
-                        print("Response String: \(response.result.value)")
-                    }
-                    .responseJSON { response in
-                        print("Response JSON: \(response.result.value)")
-                }
-                self?.tableView.dg_stopLoading()
+                self?.requestData()
             }
             }, loadingView: loadingView)
         tableView.dg_setPullToRefreshFillColor(UIColor(red: 57/255.0, green: 67/255.0, blue: 89/255.0, alpha: 1.0))
         tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
     }
+    var httpRequest:Request?
+    func requestData(){
+        let info = getUserInfo()
+        let parameters : Parameters =
+            [
+                "m":"update",
+                "unitId":info.unitid,
+                "updateTime":"20161219120000"
+        ]
+        
+        
+//        print(parameters)
+        
+        httpRequest = Alamofire.request("http://192.168.20.50:8090/yjtx.do",parameters:parameters)
+            .response { response in
+                print("Request: \(response.request)")
+                print("Response: \(response.response)")
+                print("Error: \(response.error)")
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    print("Data: \(utf8Text)")
+                }
+            }
+            .responseJSON { response in
+                print("Response JSON: \(response.result.value)")
+                
+                DispatchQueue.main.async(execute: {
+                    
+                    self.tableView.reloadData()
+                })
+        }
+        self.tableView.dg_stopLoading()
+    }
+    
+    func getUserInfo() -> (userId:String,unitid:String){
+        let ud = UserDefaults.standard
+        let id = ud.string(forKey: "currentUserIdId")
+        if  (id == nil) {
+            return ("","")
+        }
+        print("--------\(id)")
+        let request = NSFetchRequest<NSFetchRequestResult>.init(entityName: "User")
+        request.predicate = NSPredicate.init(format: "id CONTAINS  %@ ", id!)
+        let result = try? context.fetch(request) as! [User] as Array
+        return (id!,(result?[0].ssbm)!)
+    }
+
+    
+    
     
     deinit {
         tableView.dg_removePullToRefresh()
@@ -77,7 +133,7 @@ extension CommunicationViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return array.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -113,5 +169,8 @@ extension CommunicationViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+}
+struct Comm{
     
 }

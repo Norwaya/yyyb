@@ -26,17 +26,30 @@ class QueryViewController: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        tableView.dataSource = self
-        tableView.delegate = self
-        initButton()
+//        print("------------------array:\(self.array) \n context->\(context) \n tableview->\(self.tableView.description)\nhttp-> \(httpRequest?.request?.description)")
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        print("view did appear")
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let app = UIApplication.shared.delegate as! AppDelegate
         context = app.persistentContainer.viewContext
-        // Do any additional setup after loading the view.
-    }
+    
+        print("query view did load")
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        initButton()
 
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        if(httpRequest != nil){
+            httpRequest?.cancel()
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -69,6 +82,7 @@ class QueryViewController: UIViewController {
            firstLoad = false
         }
     }
+    
     @IBAction func btn_search(_ sender: UIButton) {
         switch sender.tag {
         case 101:
@@ -76,16 +90,23 @@ class QueryViewController: UIViewController {
         case 102:
             initAlertController(time:"to")
         case 103:
+            
             requestRecored()
         default:
             print("have no button equal this tag")
         }
     }
+    var httpRequest:Request?
     func requestRecored(){
+        if(httpRequest != nil){
+            httpRequest?.cancel()
+        }
+        
+        
         let info = getUserInfo()
         
         let format2 = DateFormatter.init()
-        format2.dateFormat = "yyyyMMdd"
+        format2.dateFormat = "yyyy-MM-dd"
         
         let parameters:Parameters =
             [
@@ -95,16 +116,17 @@ class QueryViewController: UIViewController {
                 "endTime":format2.string(from: self.to ?? Date()),
                 "pageNo":"0"
             ]
+        let url = "http://192.168.20.50:8090/sbjl.do"
+//        let url = "http://192.168.0.173:8084/sbjl.do"
         
-        
-        
-        Alamofire.request("http://192.168.20.50:8090/sbjl.do",parameters:parameters)
+        httpRequest = Alamofire.request(url,parameters:parameters)
             .responseJSON{
             response in
                 self.array.removeAll()
             let result = JSON.init(response.result.value)
                 print(result)
                 let code = result["code"]
+                
                 switch code{
                 case 0:
                     let dataArray = result["pagedList"]["list"]
@@ -120,6 +142,7 @@ class QueryViewController: UIViewController {
                 }
                 self.tableView.reloadData()
         }
+        print(httpRequest?.request?.description)
     }
     
     func getUserInfo() -> (name:String,unitid:String){
@@ -224,10 +247,13 @@ extension QueryViewController: UITableViewDataSource{
         return cell!
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(indexPath.row)")
+        print("click into rb")
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "show") as! ShowRecoredViewController
+        print("1")
         vc.time = self.array[indexPath.row].time
+        print("2")
         self.navigationController?.pushViewController(vc, animated: true)
+        print("3")
     }
     func btnTarget(sender: CustomButton){
 //        let id = sender.id

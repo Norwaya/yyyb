@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11542" systemVersion="16B2555" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16B2555" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Aclass" representedClassName="Aclass" syncable="YES" codeGenerationType="class">
         <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="aorder" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Aorder" inverseName="inclass" inverseEntity="Aorder" syncable="YES"/>
@@ -122,6 +122,14 @@
         <attribute name="zfzb" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="zjz" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Ybdm" representedClassName="Ybdm" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="szsbm" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ybdm" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ybmc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ybsbm" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ywmc" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Yydm" representedClassName="Yydm" syncable="YES" codeGenerationType="class">
         <attribute name="fb" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
@@ -139,7 +147,7 @@
         <element name="Aorder" positionX="27" positionY="9" width="128" height="88"/>
         <element name="Aspecies" positionX="-281" positionY="254" width="128" height="133"/>
         <element name="Disease" positionX="-306" positionY="-18" width="128" height="118"/>
-        <element name="Expert" positionX="-144" positionY="135" width="128" height="208"/>
+        <element name="Expert" positionX="-144" positionY="135" width="128" height="210"/>
         <element name="Jwd" positionX="-153" positionY="-108" width="128" height="120"/>
         <element name="Kbxx" positionX="-144" positionY="-99" width="128" height="360"/>
         <element name="Linkman" positionX="-153" positionY="126" width="128" height="105"/>
@@ -147,5 +155,6 @@
         <element name="Rbxx" positionX="-153" positionY="-108" width="128" height="270"/>
         <element name="User" positionX="-333" positionY="-261" width="128" height="298"/>
         <element name="Yydm" positionX="-135" positionY="-90" width="128" height="165"/>
+        <element name="Ybdm" positionX="-153" positionY="-108" width="128" height="135"/>
     </elements>
 </model>

@@ -18,6 +18,8 @@ class TraceViewController: UIViewController {
     var targetInputFile: NSString!
     var queryOperation: Operation!
     
+    let url = "http://192.168.20.50:8090/sbjl.do"
+//     let url = "http://192.168.0.173:8084/sbjl.do"
     
     var gj:String!
     
@@ -74,10 +76,11 @@ class TraceViewController: UIViewController {
                 "unitId": info.ssbm
         ]
 
-        Alamofire.request("http://192.168.20.50:8090/sbjl.do",method:.get,parameters:parameters,headers:headers)
+        Alamofire.request(url,method:.get,parameters:parameters,headers:headers)
             .responseJSON{
                 response in
                 let json = JSON.init(response.result.value)
+                print(json)
                 var code = json["code"]
                 if( code == 0){
                     self.customQueryAction(json: json)

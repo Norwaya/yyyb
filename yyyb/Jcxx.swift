@@ -78,7 +78,7 @@ struct structKbxx{
     var zzms: String?
     var sjtz:String?
     init(fxdd:String,fxsj:String,jd:String,wd:String,wzid:String,zqtz:String,zqsl:String,ycsl:String ,swsl:String,zzms:String,cbjl:String,cbjlqt:String,xccl:String,ycdwcl:String,lrsj:String,ssbm:String,sjtz:String,bgbh:String){
-        self.fxsj = fxsj
+//        self.fxsj = fxsj
         self.fxdd  = fxdd
         self.jd = jd
         self.wd = wd
@@ -93,7 +93,7 @@ struct structKbxx{
         self.xccl = xccl
         self.ycdwcl = ycdwcl
         self.lrsj = lrsj
-        self.ssbm = ssbm
+//        self.ssbm = ssbm
         self.sjtz = sjtz
         self.bgbh = bgbh
         

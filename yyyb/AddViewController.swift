@@ -46,7 +46,7 @@ class AddViewController: UIViewController, UISearchBarDelegate{
         }
         switch tag{
         case 101:
-            original = ["常用1","常用2","常用3","常用4","常用5"]
+            original = []
             
         case 102:
             original = queryById(id: "AV")
@@ -239,9 +239,10 @@ class AddViewController: UIViewController, UISearchBarDelegate{
     func queryById(id: String) -> Array<String>{
         var array: Array<String> = Array()
         do {
-            let request = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Yydm")
-            request.predicate = NSPredicate.init(format: "id CONTAINS %@ ", id)
             
+           
+            let request = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Yydm")
+            request.predicate = NSPredicate.init(format: "(id BEGINSWITH %@) and NOT(id  ENDSWITH %@)", id,"000000")
             let result = try! context.fetch(request) as! [Yydm] as Array
             NSLog("result couunt is %d", result.count)
             for yydm in result{

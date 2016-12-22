@@ -10,7 +10,6 @@
 		30A2B13EB45B51A038260371 /* Pods_yyyb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7FE58936FF5507A67F00879 /* Pods_yyyb.framework */; };
 		590A59691DF952F2002B0214 /* yyyb.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 590A59671DF952F2002B0214 /* yyyb.xcdatamodeld */; };
 		590A596F1DF96432002B0214 /* yydm.json in Resources */ = {isa = PBXBuildFile; fileRef = 590A596E1DF96432002B0214 /* yydm.json */; };
-		590A59711DFA3440002B0214 /* yy.json in Resources */ = {isa = PBXBuildFile; fileRef = 590A59701DFA3440002B0214 /* yy.json */; };
 		590B36181E05125900D9ED8F /* ShowRbxxDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590B36171E05125900D9ED8F /* ShowRbxxDetailViewController.swift */; };
 		590B92471E04CA2900BF5F56 /* ybdm.json in Resources */ = {isa = PBXBuildFile; fileRef = 590B92461E04CA2900BF5F56 /* ybdm.json */; };
 		590B92491E04D4B300BF5F56 /* ShowRbxxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590B92481E04D4B300BF5F56 /* ShowRbxxViewController.swift */; };
@@ -37,6 +36,9 @@
 		5932E62E1E0296E300D84D54 /* SaveExpressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5932E62D1E0296E300D84D54 /* SaveExpressViewController.swift */; };
 		5932E6301E029AC200D84D54 /* CbjlTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5932E62F1E029AC200D84D54 /* CbjlTableViewController.swift */; };
 		5935CA661DF7C95000D91856 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5935CA651DF7C95000D91856 /* LoginViewController.swift */; };
+		593A7E451E0A42C300663019 /* YbkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593A7E441E0A42C300663019 /* YbkTableViewController.swift */; };
+		593A7E471E0A4DF600663019 /* YbkDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593A7E461E0A4DF600663019 /* YbkDetailViewController.swift */; };
+		5965D6AC1E08FC9E005A0378 /* ShowKbxxDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965D6AB1E08FC9E005A0378 /* ShowKbxxDetailViewController.swift */; };
 		598CA2531DED63F200A02CB0 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B814611DE002D900F341AC /* libz.tbd */; };
 		598CA2541DED63FE00A02CB0 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B814671DE0033300F341AC /* JavaScriptCore.framework */; };
 		598CA2551DED641700A02CB0 /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5925E74C1DED4F4F00F75452 /* AMapFoundationKit.framework */; };
@@ -141,7 +143,6 @@
 		098D932C39CC62D27DEA0874 /* Pods-yyyb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yyyb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-yyyb/Pods-yyyb.debug.xcconfig"; sourceTree = "<group>"; };
 		590A59681DF952F2002B0214 /* yyyb.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = yyyb.xcdatamodel; sourceTree = "<group>"; };
 		590A596E1DF96432002B0214 /* yydm.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = yydm.json; sourceTree = SOURCE_ROOT; };
-		590A59701DFA3440002B0214 /* yy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = yy.json; sourceTree = SOURCE_ROOT; };
 		590B36171E05125900D9ED8F /* ShowRbxxDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowRbxxDetailViewController.swift; sourceTree = "<group>"; };
 		590B92461E04CA2900BF5F56 /* ybdm.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ybdm.json; sourceTree = "<group>"; };
 		590B92481E04D4B300BF5F56 /* ShowRbxxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowRbxxViewController.swift; sourceTree = "<group>"; };
@@ -176,6 +177,9 @@
 		5932E62D1E0296E300D84D54 /* SaveExpressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveExpressViewController.swift; sourceTree = "<group>"; };
 		5932E62F1E029AC200D84D54 /* CbjlTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CbjlTableViewController.swift; sourceTree = "<group>"; };
 		5935CA651DF7C95000D91856 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		593A7E441E0A42C300663019 /* YbkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YbkTableViewController.swift; sourceTree = "<group>"; };
+		593A7E461E0A4DF600663019 /* YbkDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YbkDetailViewController.swift; sourceTree = "<group>"; };
+		5965D6AB1E08FC9E005A0378 /* ShowKbxxDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowKbxxDetailViewController.swift; sourceTree = "<group>"; };
 		598CA2501DED610700A02CB0 /* Swift-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Swift-Bridging-Header.h"; sourceTree = "<group>"; };
 		598CA2511DED636300A02CB0 /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MAMapKit.framework; path = ../../../Downloads/AMap_iOS_3DMap_Demo_V4.4.0/Frameworks/MAMapKit.framework; sourceTree = "<group>"; };
 		598CA25D1DED666600A02CB0 /* OfflineDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineDetailViewController.h; sourceTree = "<group>"; };
@@ -422,6 +426,15 @@
 			name = login;
 			sourceTree = "<group>";
 		};
+		593A7E411E0A421100663019 /* ybk */ = {
+			isa = PBXGroup;
+			children = (
+				593A7E441E0A42C300663019 /* YbkTableViewController.swift */,
+				593A7E461E0A4DF600663019 /* YbkDetailViewController.swift */,
+			);
+			name = ybk;
+			sourceTree = "<group>";
+		};
 		598CA25C1DED666600A02CB0 /* offlineMap */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,6 +562,7 @@
 				590B924A1E04D4C000BF5F56 /* ShowKbxxViewController.swift */,
 				590B924C1E04D55800BF5F56 /* ShowRecoredViewController.swift */,
 				590B36171E05125900D9ED8F /* ShowRbxxDetailViewController.swift */,
+				5965D6AB1E08FC9E005A0378 /* ShowKbxxDetailViewController.swift */,
 			);
 			name = query;
 			sourceTree = "<group>";
@@ -601,7 +615,6 @@
 		59B814371DE0012200F341AC /* yyyb */ = {
 			isa = PBXGroup;
 			children = (
-				590A59701DFA3440002B0214 /* yy.json */,
 				590B92461E04CA2900BF5F56 /* ybdm.json */,
 				590A596E1DF96432002B0214 /* yydm.json */,
 				590A59671DF952F2002B0214 /* yyyb.xcdatamodeld */,
@@ -704,6 +717,7 @@
 		59B8148A1DE029DD00F341AC /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				593A7E411E0A421100663019 /* ybk */,
 				5925E72C1DED235300F75452 /* setting */,
 				590C2F291DFE300F008CF654 /* yyk */,
 				5935CA641DF7C94400D91856 /* login */,
@@ -840,9 +854,9 @@
 				TargetAttributes = {
 					59B814341DE0012200F341AC = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = FXUF647HWQ;
+						DevelopmentTeam = 25MKERBSAM;
 						LastSwiftMigration = 0810;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -908,7 +922,6 @@
 				598CA4121DED6A4700A02CB0 /* GWF.png in Resources */,
 				598CA3F41DED6A4700A02CB0 /* heatMapData.json in Resources */,
 				598CA40A1DED6A4700A02CB0 /* custtexture_slow.png in Resources */,
-				590A59711DFA3440002B0214 /* yy.json in Resources */,
 				598CA4021DED6A4700A02CB0 /* arrow_right@2x.png in Resources */,
 				598CA4071DED6A4700A02CB0 /* custtexture.png in Resources */,
 				590A596F1DF96432002B0214 /* yydm.json in Resources */,
@@ -994,6 +1007,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				592405071E07613C009E947A /* ExpertViewController.swift in Sources */,
+				5965D6AC1E08FC9E005A0378 /* ShowKbxxDetailViewController.swift in Sources */,
 				59B814841DE0200E00F341AC /* MonitoringRegionViewController.swift in Sources */,
 				598CA5831DEE8EF000A02CB0 /* QueryViewController.swift in Sources */,
 				590C2F311DFE3091008CF654 /* Yyk4TableViewController.swift in Sources */,
@@ -1023,6 +1037,7 @@
 				598CA5771DED80C400A02CB0 /* NoticeViewController.swift in Sources */,
 				59C64DB61DE56C6F00167B36 /* ItemTextField.swift in Sources */,
 				590C2F451DFE8650008CF654 /* ZLDropDownMenuTitleButton.m in Sources */,
+				593A7E451E0A42C300663019 /* YbkTableViewController.swift in Sources */,
 				5932E6301E029AC200D84D54 /* CbjlTableViewController.swift in Sources */,
 				59C64DAF1DE442FD00167B36 /* DailyViewController.swift in Sources */,
 				590C2F461DFE8650008CF654 /* ZLDropDownMenuUICalc.m in Sources */,
@@ -1045,6 +1060,7 @@
 				59B8148E1DE02D1C00F341AC /* CustomCellTableViewCell.swift in Sources */,
 				590C2F421DFE8650008CF654 /* NSString+ZLStringSize.m in Sources */,
 				59C64DB21DE4442300167B36 /* PassDictionary.swift in Sources */,
+				593A7E471E0A4DF600663019 /* YbkDetailViewController.swift in Sources */,
 				592CA82C1DF24E5F00A863B5 /* TraceViewController.swift in Sources */,
 				59B814851DE0200E00F341AC /* SerialLocationViewController.swift in Sources */,
 				590B36181E05125900D9ED8F /* ShowRbxxDetailViewController.swift in Sources */,
@@ -1173,9 +1189,11 @@
 			baseConfigurationReference = 098D932C39CC62D27DEA0874 /* Pods-yyyb.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = FXUF647HWQ;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: jian guo li (25MKERBSAM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: jian guo li (25MKERBSAM)";
+				DEVELOPMENT_TEAM = 25MKERBSAM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1184,12 +1202,15 @@
 				INFOPLIST_FILE = yyyb/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bz.yyyb-0";
+				PRODUCT_BUNDLE_IDENTIFIER = com.baizhong.yyybcjd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "edaf002b-4fec-4f4c-9247-65a5d6d451ff";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/amdin/Desktop/project/yyyb/Swift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_REFLECTION_METADATA_LEVEL = all;
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Debug;
@@ -1199,9 +1220,12 @@
 			baseConfigurationReference = D95EADF894722EDFF3C11FFB /* Pods-yyyb.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = FXUF647HWQ;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: jian guo li (25MKERBSAM)";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: jian guo li (25MKERBSAM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: jian guo li (25MKERBSAM)";
+				DEVELOPMENT_TEAM = 25MKERBSAM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1210,11 +1234,14 @@
 				INFOPLIST_FILE = yyyb/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bz.yyyb-0";
+				PRODUCT_BUNDLE_IDENTIFIER = com.baizhong.yyybcjd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "edaf002b-4fec-4f4c-9247-65a5d6d451ff";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/amdin/Desktop/project/yyyb/Swift-Bridging-Header.h";
 				SWIFT_REFLECTION_METADATA_LEVEL = all;
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Release;

@@ -10,6 +10,8 @@ import UIKit
 import Alamofire
 import DGElasticPullToRefresh
 import CoreData
+import SwiftyJSON
+
 class NoticeViewController: UIViewController {
     var context:NSManagedObjectContext!
     var array:Array<Emunication> = []
@@ -17,6 +19,9 @@ class NoticeViewController: UIViewController {
     // MARK: -
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        DispatchQueue.main.async(execute: {
+            self.tableView.reloadData()
+        })
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -54,31 +59,53 @@ class NoticeViewController: UIViewController {
     
     func requestData(){
         let info = getUserInfo()
+        let headers: HTTPHeaders = [
+            "Accept": "application/json",
+            "Content-Type":"application/json; charset=utf-8"
+        ]
         let parameters : Parameters =
             [
-                "m":"update",
+                "m":"getTzggListByTitle",
                 "unitId":info.unitid,
-                "updateTime":"20161219"
+                "userId":info.userId
             ]
         
         
         
         
-        Alamofire.request("https://192.168.20.50:8090/yjtx.do",parameters:parameters)
+        Alamofire.request("http://192.168.20.50:8090/tzgg.do",parameters:parameters,headers:headers)
+            .response { response in
+                print("Request: \(response.request)")
+                print("Response: \(response.response)")
+                print("Error: \(response.error)")
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    print("Data: \(utf8Text)")
+                }
+            }
             .responseJSON { response in
-                print("Response JSON: \(response.result.value)")
+                let json = JSON(response.result.value)
+                
+                print("message: \(json["message"].string?.utf8)")
+                
+                DispatchQueue.main.async(execute: {
+                    
+                    self.tableView.reloadData()
+                })
         }
         self.tableView.dg_stopLoading()
     }
     
-    func getUserInfo() -> (name:String,unitid:String){
+    func getUserInfo() -> (userId:String,unitid:String){
         let ud = UserDefaults.standard
-        let yhm = ud.string(forKey: "currentUserId")
-        if  (yhm == nil) {
+        let id = ud.string(forKey: "currentUserIdId")
+        if  (id == nil) {
             return ("","")
         }
-        let result = try? context.fetch(NSFetchRequest<NSFetchRequestResult>.init(entityName: "User")) as! [User] as Array
-        return (yhm!,(result?[0].ssbm)!)
+        print("--------\(id)")
+        let request = NSFetchRequest<NSFetchRequestResult>.init(entityName: "User")
+        request.predicate = NSPredicate.init(format: "id CONTAINS  %@ ", id!)
+        let result = try? context.fetch(request) as! [User] as Array
+        return (id!,(result?[0].ssbm)!)
     }
 
     
@@ -93,7 +120,7 @@ extension NoticeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return array.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

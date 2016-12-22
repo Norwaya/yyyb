@@ -117,8 +117,11 @@ class MapViewController: UIViewController,MAMapViewDelegate, AMapLocationManager
     func saveEnable() -> Bool{
         let format = DateFormatter.init()
         format.dateFormat = "ss"
-        let date = format.string(from: Date())
-        return (Int.init(date)!/10 == 0)
+        print("ss:\(format.string(from: Date()))")
+         let date = format.string(from: Date())
+        print((Int.init(date)!%10 == 0))
+       
+        return (Int.init(date)!%10 == 0)
     }
     func gaodeTobaidu(jd:Double,wd:Double) -> (jd:Double,wd:Double){
         let x_pi = 3.14159265358979324 * 3000.0 / 180.0;
@@ -190,10 +193,17 @@ class MapViewController: UIViewController,MAMapViewDelegate, AMapLocationManager
     }
     func test(sender: UIBarButtonItem){
         //处理 未上传的 报告
+        let rbjl = try! context.fetch(NSFetchRequest<NSFetchRequestResult>.init(entityName: "Rbxx"))
+        let kbjl = try! context.fetch(NSFetchRequest<NSFetchRequestResult>.init(entityName: "Kbxx"))
+        
+        if(rbjl.count + kbjl.count > 0){
+            return
+        }
         NSLog("deal daily and express")
         self.navigationController?.popToRootViewController(animated: true)
 
     }
+    
     func upload(sender: UIBarButtonItem){
         let vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "upload")
         vcInstance?.navigationController?.isToolbarHidden = true

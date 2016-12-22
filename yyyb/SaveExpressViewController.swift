@@ -82,7 +82,18 @@ class SaveExpressViewController: UIViewController {
         }
     }
     
-    
+    func showAlertController(title: String,msg: String,ok: String){
+        let alertController = UIAlertController(title:title, message:msg  , preferredStyle: UIAlertControllerStyle.alert)
+        
+        
+        //        let cancelAction = UIAlertAction(title:cancel, style: UIAlertActionStyle.cancel, handler: nil)
+        
+        let okAction = UIAlertAction(title:ok, style: UIAlertActionStyle.default, handler: nil)
+        
+        //        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated:true, completion: nil)
+    }
     
     @IBAction func btn_save(_ sender: Any) {
         saveBaseInfo()
@@ -92,7 +103,18 @@ class SaveExpressViewController: UIViewController {
             print("target dic is nil")
             return
         }
-        
+        for item in targetDic.values{
+            let wzsl = Int.init(item.animalNum ?? "0")
+            let ycsl = Int.init(item.exceptionNum ?? "0")
+            let swsl = Int.init(item.deathNum ?? "0")
+            if ((wzsl! >= ycsl!)&&(ycsl! >= swsl!)){
+                
+            }else{
+                showAlertController(title: "提示", msg: "物种数量填写不正确", ok: "确定")
+                return
+            }
+            
+        }
         for express in targetDic.values{
             print(" begin to save data----")
             
@@ -122,7 +144,7 @@ class SaveExpressViewController: UIViewController {
             try? context.save()
         }
         
-        test()
+//        test()
         let controllers = navigationController?.viewControllers
         self.navigationController?.popToViewController((controllers?[(controllers?.count)!-4])!, animated: true)
         

@@ -299,6 +299,9 @@ extension ExpressViewController: UITableViewDelegate,UITableViewDataSource,PassD
             let id = (btnSpecial?.id)!
             var express = targetDic[id]
             express?.animalSpecial = dic["item"] as? String
+            
+            print("----\(dic["item"])")
+            
             btnSpecial?.setTitle(dic["itemname"] as! String, for: UIControlState.normal)
             targetDic.updateValue(express!, forKey: id)
             print("save->\(id) -> \(targetDic[id]?.animalSpecial)")

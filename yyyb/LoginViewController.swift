@@ -13,26 +13,36 @@ import CoreData
 
 class LoginViewController: UIViewController {
 
+    let url = "http://192.168.20.50:8090/login.do"
+//    let url = "http://192.168.0.173:8084/login.do"
+    var httpRequest:Request?
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var rememberPassword: UISegmentedControl!
+    
     
     var currentUserId: String! = nil
     var currentUserIdId:String! = nil
     override func viewDidLoad() {
         super.viewDidLoad()
-        username.text = "G6190010010M01"
-        password.text = "123456"
+        username.text = ""
+        password.text = ""
         navigationController?.isNavigationBarHidden = true
         // Do any additional setup after loading the view.
     }
-
+    override func viewWillDisappear(_ animated: Bool) {
+        if httpRequest != nil{
+            httpRequest?.cancel()
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     @IBAction func btnLogin(_ sender: UIButton) {
+        if httpRequest != nil{
+            httpRequest?.cancel()
+        }
         if !checkAction(){
             return
         }
@@ -43,12 +53,12 @@ class LoginViewController: UIViewController {
                 "password": "\((self.password.text)!)"
             ]
         
-        Alamofire.request("http://192.168.20.50:8090/login.do",method: .get,parameters: parameters)
+       httpRequest =  Alamofire.request(url,method: .get,parameters: parameters)
             
             .responseJSON{
                 response in
                 if ((response.result.value) == nil){
-                    NSLog("response has no value")
+                    self.showAlertController(title: "提示", msg: "检查vpn和网络连接", ok: "确定")
                     return
                 }
             let json = JSON.init(response.result.value )
@@ -69,19 +79,31 @@ class LoginViewController: UIViewController {
                     
                 }
             case 1:
-                print("fail")
+                self.showAlertController(title: "提示", msg: "账号密码错误", ok: "确定")
             case -1:
-                print("error")
+                self.showAlertController(title: "提示", msg: "账号密码错误", ok: "确定")
             default:
                 print("default")
             }
 //            let user = json["pagedList"]["list"][0]["ssbm"]
 //            print(user)
         }
+        print(httpRequest?.request?.description)
     }
     
-    
-    
+    //dialog
+    func showAlertController(title: String,msg: String,ok: String){
+        let alertController = UIAlertController(title:title, message:msg  , preferredStyle: UIAlertControllerStyle.alert)
+        
+        
+        //        let cancelAction = UIAlertAction(title:cancel, style: UIAlertActionStyle.cancel, handler: nil)
+        
+        let okAction = UIAlertAction(title:ok, style: UIAlertActionStyle.default, handler: nil)
+        
+        //        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated:true, completion: nil)
+    }
     // check input is ok
     func checkAction() -> Bool{
         let username = self.username.text

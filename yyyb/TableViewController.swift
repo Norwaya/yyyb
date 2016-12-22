@@ -83,6 +83,7 @@ class TableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isToolbarHidden = true
+//        navigationController?.
         initResource()
     }
     //检查登录状态
@@ -95,20 +96,22 @@ class TableViewController: UITableViewController {
     }
     
     func initResource(){
-        
-        initSqlite()
-        
-        
-        
-    }
-    func initSqlite(){
-        
-        
         let ud = UserDefaults.standard
         let flag = ud.bool(forKey: "hasInitData")
         if flag {
             return
         }
+        initYyk()
+        initYbk()
+        
+        ud.set(true, forKey: "hasInitData")
+        ud.synchronize()
+        
+    }
+    func initYyk(){
+        
+        
+        
 
         let app = UIApplication.shared.delegate as! AppDelegate
         //        app.domain
@@ -117,18 +120,16 @@ class TableViewController: UITableViewController {
         let entity = NSEntityDescription.entity(forEntityName: "Yydm", in: managerObjectContext)
         //Get the ManagedObject
         let filePath = Bundle.main.path(forResource: "yydm", ofType: "json")
-        
         do {
             let content = try? String.init(contentsOfFile: filePath!, encoding: String.Encoding.utf8)
-            //            print(content)
             var json :JSON = JSON.null
             if let dataFromString = content?.data(using: .utf8, allowLossyConversion: false) {
                 json = JSON(data: dataFromString)
             }
-            print(json.array?.count)
             let array = json.array
             
-        
+            
+            
             for index in 0 ..< 3577{
                 //                DispatchQueue.global().async {
                 print("index -> \(index)")
@@ -145,22 +146,53 @@ class TableViewController: UITableViewController {
                 managerObjectContext.insert(yydm)
                 
             }
-            
             try? managerObjectContext.save()
-            var result = try? managerObjectContext.fetch(NSFetchRequest<NSFetchRequestResult>.init(entityName: "Yydm")) as! [Yydm] as Array
-            print("yydm count is \(result?.count)")
-            //            for a in result!{
-            //                    managerObjectContext.delete(a)
-            //            }
-            //            try? managerObjectContext.save()
-            ud.set(true, forKey: "hasInitData")
-            ud.synchronize()
         } catch  let err as NSError{
             print("error when save data \(err.description)")
         }
 
     }
-    
+    func initYbk(){
+        let app = UIApplication.shared.delegate as! AppDelegate
+        //        app.domain
+        
+        let managerObjectContext = app.persistentContainer.viewContext
+        
+        let entity = NSEntityDescription.entity(forEntityName: "Ybdm", in: managerObjectContext)
+        //Get the ManagedObject
+        let filePath = Bundle.main.path(forResource: "ybdm", ofType: "json")
+        
+        do {
+            let content = try? String.init(contentsOfFile: filePath!, encoding: String.Encoding.utf8)
+            var json :JSON = JSON.null
+            if let dataFromString = content?.data(using: .utf8, allowLossyConversion: false) {
+                json = JSON(data: dataFromString)
+            }
+            let array = json.array
+            
+            
+            for index in 0 ..< 1673{
+                //                DispatchQueue.global().async {
+                print("index -> \(index)")
+                let ybdm = NSManagedObject(entity: entity!, insertInto: managerObjectContext) as! Ybdm
+                ybdm.id = array?[index]["id"].string
+                ybdm.ybmc = array?[index]["ybmc"].string
+                ybdm.ywmc = array?[index]["ywmc"].string
+                ybdm.ybsbm = array?[index]["ybsbm"].string
+                ybdm.szsbm = array?[index]["szsbm"].string
+                ybdm.ybdm = array?[index]["ybdm"].string
+                managerObjectContext.insert(ybdm)
+                
+            }
+            
+            
+            try? managerObjectContext.save()
+            
+        } catch  let err as NSError{
+            print("error when save data \(err.description)")
+        }
+
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -236,8 +268,17 @@ class TableViewController: UITableViewController {
                 vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "query")
             case 2:
                 vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "yyk")
+            case 3:
+                vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "ybk")
+            case 4:
+                vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "communication")
             case 5:
                 vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "notice")
+            
+            case 6:
+                vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "expert")
+            case 7:
+                return
             case 8:
                 vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "setting")
             default:
