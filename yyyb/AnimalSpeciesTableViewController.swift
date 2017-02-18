@@ -10,8 +10,8 @@ import UIKit
 
 class AnimalSpeciesTableViewController: UITableViewController {
     var delegate: PassDictionary?
-    var array = ["高山冻原","滩涂","珊瑚礁","草原","荒漠",
-                 "沼泽","森林","草甸","湖泊","浅海湿地","旱地","河流","河口","人工湿地","水田"]
+    var array = ["森林","草甸","荒漠","高山冻原","草甸",
+                 "沼泽","湖泊","河流","河口","滩涂","浅海湿地","珊瑚礁","人工湿地","水田","旱地"]
     override func viewDidLoad() {
         super.viewDidLoad()
 

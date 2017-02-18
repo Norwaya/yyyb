@@ -83,7 +83,7 @@ class TableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isToolbarHidden = true
-//        navigationController?.
+        navigationController?.navigationBar.isHidden = false
         initResource()
     }
     //检查登录状态
@@ -103,7 +103,6 @@ class TableViewController: UITableViewController {
         }
         initYyk()
         initYbk()
-        
         ud.set(true, forKey: "hasInitData")
         ud.synchronize()
         
@@ -197,7 +196,7 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "首页"
+        self.title = "疫源疫病监测"
         //判断 如果登陆状态 则 往下执行  否则 跳转到登录页面
         
         
@@ -322,7 +321,7 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "功能"
+            return "疫源疫病移动采集"
         default:
             return ""
         }

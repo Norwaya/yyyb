@@ -106,7 +106,7 @@ class MapViewController: UIViewController,MAMapViewDelegate, AMapLocationManager
         
         
         
-        NSLog("\nlat: %f \nlon: %f \ndetail: %@ ", point.latitude,point.longitude,point.detailAddress)
+        //NSLog("\nlat: %f \nlon: %f \ndetail: %@ ", point.latitude,point.longitude,point.detailAddress)
         //        NSLog("location:{lat:\(location.coordinate.latitude); lon:\(location.coordinate.longitude); accuracy:\(location.horizontalAccuracy); reGeocode:\(reGeocode?.formattedAddress)};");
         
 //        pointAnnotation.coordinate = location.coordinate

@@ -34,7 +34,7 @@ class ShowKbxxDetailViewController: UIViewController {
     var detail:KbxxDetail?
     
     var httpRequest:Request?
-    let url = "http://192.168.20.50:8090/sbjl.do"
+    let url = "http://\(Contact.getUrl())/sbjl.do"
     //    let url = "http://192.168.0.173:8084/sbjl.do"
     
     
@@ -94,7 +94,7 @@ class ShowKbxxDetailViewController: UIViewController {
                 let zqtz = json["zqtz"].string
                 let sjtzCode = json["sjtz"].string
                 let zqsl = json["zqsl"].string
-                let ycsl = json["scsl"].string
+                let ycsl = json["ycsl"].string
                 let swsl  = json["swsl"].string
                 let zzms = json["zzms"].string
                 let pic = json["fjsc"].string
@@ -106,19 +106,19 @@ class ShowKbxxDetailViewController: UIViewController {
                 
                 self.dwmc.text = self.getWzmc(id: wzid!)
                 self.fxdd.text = fxdd
-                self.fxwz.text = String.init(format: "%6.3f  %6.3f", jd ?? 0.0,wd ?? 0.0)
+                self.fxwz.text = String.init(format: "%9.6f  %9.6f", jd ?? 0.0,wd ?? 0.0)
                 self.zqtz.text = zqtz
                 
-                var array = ["高山冻原","滩涂","珊瑚礁","草原","荒漠",
-                             "沼泽","森林","草甸","湖泊","浅海湿地","旱地","河流","河口","人工湿地","水田"]
-                let sjtzIndex = Int.init(sjtzCode ?? "0")
-                self.sjtz.text = array[sjtzIndex!]
+                var array = ["","森林","草甸","荒漠","高山冻原","草甸",
+                             "沼泽","湖泊","河流","河口","滩涂","浅海湿地","珊瑚礁","人工湿地","水田","旱地",""]
+                let sjtzIndex:Int = Int.init(sjtzCode ?? "1")!
+                self.sjtz.text = array[sjtzIndex ]
                 self.zqsl.text = zqsl
                 self.ycsl.text = ycsl
                 self.swsl.text = swsl
                 self.zzms.text = zzms
                 
-                var array2 = ["染病","中毒","人为致死","自然死亡","机械死亡","死因不明","其他"]
+                var array2 = ["","染病","中毒","人为致死","自然死亡","机械死亡","死因不明","其他",""]
                 let cbjlIndex = Int.init(cbjlCode ?? "0")
                 self.cbjl.text = array2[cbjlIndex!]
                 self.xccl.text = xcclqk

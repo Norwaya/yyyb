@@ -15,6 +15,13 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - Alamofire (4.2.0)
+  - AMap3DMap (4.4.1):
+    - AMapFoundation (~> 1.3)
+  - AMapFoundation (1.3.2)
+  - AMapLocation (2.2.0):
+    - AMapFoundation (~> 1.3)
+  - AMapSearch (4.4.0):
+    - AMapFoundation (~> 1.2)
   - DGElasticPullToRefresh (1.1)
   - HandyJSON (1.3.0)
   - Hue (2.0.1)
@@ -31,6 +38,9 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - Alamofire
+  - AMap3DMap
+  - AMapLocation
+  - AMapSearch
   - DGElasticPullToRefresh
   - HandyJSON
   - Hue
@@ -55,6 +65,10 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
+  AMap3DMap: a46189dbf185d498e452294d7f600c20af0486af
+  AMapFoundation: 843dc27b2c02bc0bc2ef3346bb3dd0456cf64dbb
+  AMapLocation: 3f2005c6dec6a7a1107258d0cde43b9d7399d217
+  AMapSearch: a6c7c83905dbe12aa059c7ff83cb0726cb4fc32f
   DGElasticPullToRefresh: 28f11a6026302a90f8ffebbc6e24748e584dddd3
   HandyJSON: 70ec0ceb19b3923458c01b61c81cf83a28f3fe4e
   Hue: 354caec055fdc9d38b5ef33ca2e7224721843baf
@@ -66,6 +80,6 @@ SPEC CHECKSUMS:
   Sugar: 079e1375b76c8f0693474417836ef098f507ac50
   SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
 
-PODFILE CHECKSUM: 046545ecb2274def3fa0d88e2f6edcc0213cc041
+PODFILE CHECKSUM: 29972405f816b3d33972dd267bf10feef954d4c9
 
 COCOAPODS: 1.1.1

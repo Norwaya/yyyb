@@ -51,7 +51,7 @@ class CbjlTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dic = ["itemindex":"\(indexPath.row+1)","item":"\(array[indexPath.row])"]
+        let dic = ["itemindex":"\(indexPath.row + 1)","item":"\(array[indexPath.row])"]
         if(self.delegate != nil){
             delegate?.passDictionary(dic: dic)
         }

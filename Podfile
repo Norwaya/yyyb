@@ -23,4 +23,8 @@ target 'yyyb' do #工程名字
     pod 'HandyJSON'
     
     pod 'AFNetworking'
+    
+    pod 'AMap3DMap'
+    pod 'AMapLocation'
+    pod 'AMapSearch'
 end

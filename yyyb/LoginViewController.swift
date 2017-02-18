@@ -13,20 +13,20 @@ import CoreData
 
 class LoginViewController: UIViewController {
 
-    let url = "http://192.168.20.50:8090/login.do"
+    let url = "http://\(Contact.getUrl())/login.do"
 //    let url = "http://192.168.0.173:8084/login.do"
     var httpRequest:Request?
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
-    
-    
     var currentUserId: String! = nil
     var currentUserIdId:String! = nil
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "登陆"
         username.text = ""
         password.text = ""
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.isNavigationBarHidden = false
+        
         // Do any additional setup after loading the view.
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -54,7 +54,13 @@ class LoginViewController: UIViewController {
             ]
         
        httpRequest =  Alamofire.request(url,method: .get,parameters: parameters)
+        .response {
+            response1 in
+            print("Request: \(response1.request)")
+            print("Response: \(response1.response)")
+            print("Error: \(response1.error)")
             
+        }
             .responseJSON{
                 response in
                 if ((response.result.value) == nil){

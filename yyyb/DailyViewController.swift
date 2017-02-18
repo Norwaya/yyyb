@@ -98,7 +98,7 @@ class DailyViewController: UIViewController,PassDictionary{
                 rbxx.sjtz = animal.animalSpecial
                 rbxx.wzdm = getWzdm(name: animal.animal!)
                 rbxx.isupload = false
-                try managerObjectContext.save()
+                
 //                NSData *data = UIImageJPEGRepresentation(image, 1.0f);
 //                NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
 //                return encodedImageStr;
@@ -110,12 +110,10 @@ class DailyViewController: UIViewController,PassDictionary{
                     let strImage = data?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters)
 //                    print("str image -> \(strImage)")
                     pic.images = strImage
-                    
-                    try managerObjectContext.save()
-                    rbxx.pics?.adding(pic)
+                    rbxx.addToPics(pic)
                 }
                 
-                
+                try managerObjectContext.save()
             }
             picNum()
         } catch  {
@@ -131,15 +129,12 @@ class DailyViewController: UIViewController,PassDictionary{
         let context = app.persistentContainer.viewContext
         let array = try! context.fetch(NSFetchRequest<NSFetchRequestResult>.init(entityName: "Rbxx")) as! [Rbxx] as Array
         for rbxx in array{
-            print("test count of rbxx")
-            let set = rbxx.pics
-            print("set is \(set)")
-            let enu:NSEnumerator = set!.objectEnumerator()
-            print("start to set")
-            while let obj = enu.nextObject() {
-                print("pic -> \(obj)" )
+            let pic:Set<Pic> = rbxx.pics as! Set<Pic>
+            var num:Int = 0
+            for p in pic{
+                num += 1
             }
-            print("end to set")
+            print("pic num is \(num)")
         }
         
     }
@@ -284,7 +279,7 @@ extension DailyViewController: UITableViewDelegate,UITableViewDataSource,UITextF
         return array!.count
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "title"
+        return "日报记录"
     }
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentId = indexPath.row
@@ -315,7 +310,7 @@ extension DailyViewController: UITableViewDelegate,UITableViewDataSource,UITextF
         let daily = targetDic[indexPath.row]!
         label01.text = daily.animal
         label02.setTitle("\((daily.imageNum)!)", for: UIControlState.normal)
-        label03.text = "lat: \((daily.lat)!)  lon: \((daily.lon)!)"
+        label03.text = "\((daily.lat)!) \((daily.lon)!)"
         print("\(indexPath.row) ->  \(targetDic[indexPath.row]?.animalSpecial)")
         label04.setTitle(daily.itemName , for: UIControlState.normal)
         label05.text = daily.animalNum
@@ -358,25 +353,24 @@ extension DailyViewController: UITableViewDelegate,UITableViewDataSource,UITextF
             //
         }
     }
-   
+   //-----------
     func getLoc() -> (lat: String?,lon: String?){
         let ud = UserDefaults.standard
         var lat: String!
         var lon: String!
-        let lat0 = ud.string(forKey: "lat")
-        let lon0 = ud.string(forKey: "lon")
-        var index: String.Index
+        let lat0 = ud.string(forKey: "lat") ?? "0.0"
+        let lon0 = ud.string(forKey: "lon") ?? "0.0"
         if(lat0 != nil){
-            index = lat0!.index(lat0!.startIndex, offsetBy: 6)
-            lat = lat0!.substring(to: index)
+            let d = Double.init(lat0)
+            lat = String.init(format: "%09.6f", d!)
         }else{
-            lat = ""
+            lat = "0.0"
         }
         if(lon0 != nil){
-            index = lon0!.index(lon0!.startIndex, offsetBy: 6)
-            lon = lon0!.substring(to: index)
+            let d0 = Double.init(lon0)
+            lon = String.init(format: "%09.6f", d0!)
         }else{
-            lon = ""
+            lon = "0.0"
         }
         return (lat,lon)
     }

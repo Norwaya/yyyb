@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 class SettingTableViewController: UITableViewController {
 
-    let array = ["版本更新","离线地图","数据更新","关于","更换账号","注销"]
+    let array = ["离线地图","数据更新","关于","更换账号","注销"]
     var cellItems: Array<Array<String>>!
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isToolbarHidden = true
@@ -32,21 +32,21 @@ class SettingTableViewController: UITableViewController {
         var vcInstance: UIViewController?
         switch(indexPath.row){
         case 0:
-           print()
-        case 1:
 //            vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "start")
             vcInstance = OfflineViewController.init()
             self.navigationController?.pushViewController(vcInstance!, animated: true)
-        case 2:
+        case 1:
             print(2)
-        case 3:
+        case 2:
+            vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "about")
+            self.navigationController?.pushViewController(vcInstance!, animated: true)
             print(3)
-        case 4:
+        case 3:
             // 跳转到登陆界面
             vcInstance = self.storyboard?.instantiateViewController(withIdentifier: "login")
             self.navigationController?.pushViewController(vcInstance!, animated: true)
         
-        case 5:
+        case 4:
             //注销 删除本地数据并 跳转登陆界面
             
             if clearUserInfo(){

@@ -8,6 +8,7 @@
 
 #ifndef Swift_Bridging_Header_h
 #define Swift_Bridging_Header_h
+
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <MAMapKit/MAMapKit.h>
 #import <MAMapKit/MATraceLocation.h>

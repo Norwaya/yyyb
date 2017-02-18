@@ -18,7 +18,7 @@ class TraceViewController: UIViewController {
     var targetInputFile: NSString!
     var queryOperation: Operation!
     
-    let url = "http://192.168.20.50:8090/sbjl.do"
+    let url = "http://\(Contact.getUrl())/sbjl.do"
 //     let url = "http://192.168.0.173:8084/sbjl.do"
     
     var gj:String!

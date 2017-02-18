@@ -116,7 +116,7 @@ class QueryViewController: UIViewController {
                 "endTime":format2.string(from: self.to ?? Date()),
                 "pageNo":"0"
             ]
-        let url = "http://192.168.20.50:8090/sbjl.do"
+        let url = "http://\(Contact.getUrl())/sbjl.do"
 //        let url = "http://192.168.0.173:8084/sbjl.do"
         
         httpRequest = Alamofire.request(url,parameters:parameters)

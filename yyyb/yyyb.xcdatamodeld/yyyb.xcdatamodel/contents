@@ -1,32 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16B2555" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Aclass" representedClassName="Aclass" syncable="YES" codeGenerationType="class">
-        <attribute name="name" attributeType="String" syncable="YES"/>
-        <relationship name="aorder" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Aorder" inverseName="inclass" inverseEntity="Aorder" syncable="YES"/>
-    </entity>
-    <entity name="Afamily" representedClassName="Afamily" syncable="YES" codeGenerationType="class">
-        <attribute name="name" attributeType="String" syncable="YES"/>
-        <relationship name="agenus" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Agenus" inverseName="infamily" inverseEntity="Agenus" syncable="YES"/>
-        <relationship name="inorder" maxCount="1" deletionRule="Nullify" destinationEntity="Aorder" inverseName="afamily" inverseEntity="Aorder" syncable="YES"/>
-    </entity>
-    <entity name="Agenus" representedClassName="Agenus" syncable="YES" codeGenerationType="class">
-        <attribute name="name" attributeType="String" syncable="YES"/>
-        <relationship name="aspecies" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Aspecies" inverseName="ingenus" inverseEntity="Aspecies" syncable="YES"/>
-        <relationship name="infamily" maxCount="1" deletionRule="Nullify" destinationEntity="Afamily" inverseName="agenus" inverseEntity="Afamily" syncable="YES"/>
-    </entity>
-    <entity name="Aorder" representedClassName="Aorder" syncable="YES" codeGenerationType="class">
-        <attribute name="name" attributeType="String" syncable="YES"/>
-        <relationship name="afamily" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Afamily" inverseName="inorder" inverseEntity="Afamily" syncable="YES"/>
-        <relationship name="inclass" maxCount="1" deletionRule="Nullify" destinationEntity="Aclass" inverseName="aorder" inverseEntity="Aclass" syncable="YES"/>
-    </entity>
-    <entity name="Aspecies" representedClassName="Aspecies" syncable="YES" codeGenerationType="class">
-        <attribute name="characteristic" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="distribution" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="habit" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="latinName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="ingenus" maxCount="1" deletionRule="Nullify" destinationEntity="Agenus" inverseName="aspecies" inverseEntity="Agenus" syncable="YES"/>
-    </entity>
     <entity name="Disease" representedClassName="Disease" syncable="YES" codeGenerationType="class">
         <attribute name="ccode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cName" optional="YES" attributeType="String" syncable="YES"/>
@@ -76,6 +49,7 @@
         <attribute name="zqsl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="zqtz" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="zzms" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="pics" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Pic" syncable="YES"/>
     </entity>
     <entity name="Linkman" representedClassName="Linkman" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
@@ -141,20 +115,15 @@
         <attribute name="zp" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Aclass" positionX="-207" positionY="-120" width="128" height="73"/>
-        <element name="Afamily" positionX="-333" positionY="117" width="128" height="88"/>
-        <element name="Agenus" positionX="-45" positionY="209" width="128" height="88"/>
-        <element name="Aorder" positionX="27" positionY="9" width="128" height="88"/>
-        <element name="Aspecies" positionX="-281" positionY="254" width="128" height="133"/>
         <element name="Disease" positionX="-306" positionY="-18" width="128" height="118"/>
         <element name="Expert" positionX="-144" positionY="135" width="128" height="210"/>
         <element name="Jwd" positionX="-153" positionY="-108" width="128" height="120"/>
-        <element name="Kbxx" positionX="-144" positionY="-99" width="128" height="360"/>
+        <element name="Kbxx" positionX="-144" positionY="-99" width="128" height="375"/>
         <element name="Linkman" positionX="-153" positionY="126" width="128" height="105"/>
         <element name="Pic" positionX="-126" positionY="-81" width="128" height="60"/>
         <element name="Rbxx" positionX="-153" positionY="-108" width="128" height="270"/>
         <element name="User" positionX="-333" positionY="-261" width="128" height="298"/>
-        <element name="Yydm" positionX="-135" positionY="-90" width="128" height="165"/>
         <element name="Ybdm" positionX="-153" positionY="-108" width="128" height="135"/>
+        <element name="Yydm" positionX="-135" positionY="-90" width="128" height="165"/>
     </elements>
 </model>

@@ -17,7 +17,7 @@ import Alamofire
 class TabBarCustom: UITabBarController {
     var context:NSManagedObjectContext!
     
-    let url = "http://192.168.20.50:8090/jcxxsj.do"
+    let url = "http://\(Contact.getUrl())/jcxxsj.do"
 //    let url = "http://192.168.0.173:8084/jcxxsj.do"
     
     override func viewDidLoad() {
@@ -57,15 +57,23 @@ class TabBarCustom: UITabBarController {
         }
         switch index{
         case 0:
-            uploadRbxx()
+            if(checkUploadAble(name: "Rbxx")){
+                uploadRbxx()
+            }
         case 1:
-            uploadKbxx()
+            if(checkUploadAble(name: "Kbxx")){
+                uploadKbxx()
+            }
         default:
             print("index is error")
         }
         
     }
-    
+    //"Rbxx" or "Kbxx"
+    func checkUploadAble(name:String) -> Bool{
+        let result  = try! context.fetch(NSFetchRequest<NSFetchRequestResult>.init(entityName: name))
+        return result.count > 0
+    }
     func UTF8ToGB2312(str: String) -> (NSData?, UInt) {
         let enc = CFStringConvertEncodingToNSStringEncoding(UInt32(CFStringEncodings.GB_18030_2000.rawValue))
         
@@ -75,6 +83,12 @@ class TabBarCustom: UITabBarController {
     }
     
     func uploadKbxx(){
+        //判断是否有数据
+        
+        
+        
+        
+        
         let info = getUserInfo()
         let headers: HTTPHeaders = [
             "Accept": "application/json",
@@ -89,7 +103,8 @@ class TabBarCustom: UITabBarController {
                 "m":"getJcxx",
                 "username": info.name,
                 "unitId": info.unitid,
-                "jsonData":gbkStr!
+                "jsonData":gbkStr!,
+                "imei":""
         ]
         
         //        Alamofire.request("http://192.168.1.109:8080/LH/update",method:.get,parameters: parameters)
@@ -136,8 +151,8 @@ class TabBarCustom: UITabBarController {
                 //                print("response value:\(response.result.value)")
         }
         //
-        print("--------------------")
-        print(httpRequest?.request?.urlRequest?.description)
+        //print("--------------------")
+        //print(httpRequest?.request?.urlRequest?.description)
         
         
 
@@ -228,12 +243,19 @@ class TabBarCustom: UITabBarController {
             "Accept": "application/json",
             "Content-Type":"application/json; charset=utf-8"
         ]
+        
+        let utfToGbk = UTF8ToGB2312(str: getRbxxStr())
+        let gbkStr = String.init(data: utfToGbk.0 as! Data, encoding: String.Encoding(rawValue: utfToGbk.1))
+        
+        
+        
         let parameters: Parameters =
             [
                 "m":"getJcxx",
                 "username": info.name,
                 "unitId": info.unitid,
-                "jsonData":getRbxxStr()
+                "jsonData":getRbxxStr(),
+                "imei":""
         ]
         
         //        if let j = JSONSerializer.serializeToJSON(object: parameters){
@@ -260,7 +282,7 @@ class TabBarCustom: UITabBarController {
         //        var encoding = JSONEncoding.default
         
         
-        print("http://192.168.20.50:8090/jcxxsj.do?m=getJcxx&username=\(info.name)&unitId=\(info.unitid)&jsonData=\(getRbxxStr())")
+        //print("http://192.168.20.50:8090/jcxxsj.do?m=getJcxx&username=\(info.name)&unitId=\(info.unitid)&jsonData=\(getRbxxStr())")
         
         
         
@@ -278,6 +300,14 @@ class TabBarCustom: UITabBarController {
                     self.showAlertController(title: "提示", msg: "上报失败,请检查vpn、网络是否连接", ok: "确定")
                 }
         }
+                    .response { response in
+                                        print("Request: \(response.request)")
+                                        print("Response: \(response.response)")
+                                        print("Error: \(response.error)")
+                                        if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                                        print("Data: \(utf8Text)")
+                                        }
+                                    }
         print(httpRequest?.request?.description)
         
         
@@ -311,9 +341,10 @@ class TabBarCustom: UITabBarController {
             print("set is \(set)")
             let enu:NSEnumerator = set!.objectEnumerator()
             print("start to set")
-            while let obj = enu.nextObject() {
-                print("pic -> \((obj as AnyObject).description)" )
-                fjsc.append((obj as AnyObject).description)
+            var pics:Set<Pic> = rbxx.pics as! Set<Pic>
+            for pic in pics {
+                
+                //fjsc.append(pic.images!)
             }
 //                for pic in (rbxx.pics?.allObjects)!{
 //                fjsc.append(pic as! String)
@@ -322,8 +353,8 @@ class TabBarCustom: UITabBarController {
             format.dateFormat = "yyyyMMddHHmmss"
             let currentTime = format.string(from: Date())
             
-            let bgbh = String.init(format: "rb%@%@%@", rbxx.wzdm!,UserDefaults.standard.string(forKey: "currentUserIdId")!,currentTime)
-            
+//            let bgbh = String.init(format: "rb%@%@%@", rbxx.wzdm!,UserDefaults.standard.string(forKey: "currentUserIdId")!,currentTime)
+            let bgbh = String.init(format: "%@%@", randomSmallCaseString(length: 32),currentTime)
 //            "rb\(UserDefaults.standard.string(forKey: "currentUserIdId")!)\()"
             print(bgbh)
             print("sjtz ---->\(rbxx.sjtz)")
@@ -337,9 +368,11 @@ class TabBarCustom: UITabBarController {
 
         
         let json =   JSONSerializer.serialize(model: jcxx).toJSON()
-//        print("json ->%@",json)
-        return (json)! 
+        print("json ->%@",json)
+        return (json)!
     }
+   
+    
     var editingModel:Bool = true
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editingModel, animated: animated)

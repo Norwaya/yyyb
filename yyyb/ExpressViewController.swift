@@ -202,7 +202,7 @@ extension ExpressViewController: UITableViewDelegate,UITableViewDataSource,PassD
         return array!.count
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "title"
+        return "快报记录"
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentId = indexPath.row
@@ -314,20 +314,19 @@ extension ExpressViewController: UITableViewDelegate,UITableViewDataSource,PassD
         let ud = UserDefaults.standard
         var lat: String!
         var lon: String!
-        let lat0 = ud.string(forKey: "lat")
-        let lon0 = ud.string(forKey: "lon")
-        var index: String.Index
+        let lat0 = ud.string(forKey: "lat") ?? "0.0"
+        let lon0 = ud.string(forKey: "lon") ?? "0.0"
         if(lat0 != nil){
-            index = lat0!.index(lat0!.startIndex, offsetBy: 6)
-            lat = lat0!.substring(to: index)
+            let d = Double.init(lat0)
+            lat = String.init(format: "%09.6f", d!)
         }else{
-            lat = ""
+            lat = "0.0"
         }
         if(lon0 != nil){
-            index = lon0!.index(lon0!.startIndex, offsetBy: 6)
-            lon = lon0!.substring(to: index)
+            let d0 = Double.init(lon0)
+            lon = String.init(format: "%09.6f", d0!)
         }else{
-            lon = ""
+            lon = "0.0"
         }
         return (lat,lon)
     }

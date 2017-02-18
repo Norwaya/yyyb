@@ -65,7 +65,7 @@ class ExpertViewController: UIViewController {
     
     
     
-    Alamofire.request("http://192.168.20.50:8090/zjk.do",parameters:parameters)
+    Alamofire.request("http://\(Contact.getUrl())/zjk.do",parameters:parameters)
         .response { response in
             print("Request: \(response.request)")
             print("Response: \(response.response)")

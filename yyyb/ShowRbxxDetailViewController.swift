@@ -26,7 +26,7 @@ class ShowRbxxDetailViewController: UIViewController {
     var detail:RbxxDetail?
     
     var httpRequest:Request?
-        let url = "http://192.168.20.50:8090/sbjl.do"
+        let url = "http://\(Contact.getUrl())/sbjl.do"
 //    let url = "http://192.168.0.173:8084/sbjl.do"
     
     override func viewDidLoad() {
@@ -92,15 +92,15 @@ class ShowRbxxDetailViewController: UIViewController {
         
         
     }
-    var sjtzArray = ["高山冻原","滩涂","珊瑚礁","草原","荒漠",
-                 "沼泽","森林","草甸","湖泊","浅海湿地","旱地","河流","河口","人工湿地","水田"]
+    var sjtzArray = ["森林","草甸","荒漠","高山冻原","草甸",
+                     "沼泽","湖泊","河流","河口","滩涂","浅海湿地","珊瑚礁","人工湿地","水田","旱地"]
     func freshView(){
         DispatchQueue.main.async(execute: {
             self.dwmc.text = self.getWzmc(id: (self.detail?.wzdm)!)
-            self.fxdd.text = String.init(format: "经度:%@ 纬度:%@", self.detail?.jd ?? "",self.detail?.wd ?? "")
+            self.fxdd.text = String.init(format: "%@  %@", self.detail?.jd ?? "",self.detail?.wd ?? "")
             self.zqsl.text = self.detail?.zqsl ?? ""
-            let index:Int = Int.init(self.detail?.sjtz ?? "0")!
-            self.sjtz.text = self.sjtzArray[index]
+            let index:Int = Int.init(self.detail?.sjtz ?? "1")!
+            self.sjtz.text = self.sjtzArray[index - 1]
             self.pic.text = ""
         })
     }
